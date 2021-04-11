@@ -7,6 +7,7 @@ An object-oriented approach to making HTTP/HTTPS requests and partial implementa
 
 ## Usage
 Main purpose of this repository is to be able to provide an implementation for HTTP/HTTPS requests and its use cases like getting or sending data. 
+This is mostly for the experience (for now).
 
 ## Contributing
 You may add on to this repository if you so choose.  
