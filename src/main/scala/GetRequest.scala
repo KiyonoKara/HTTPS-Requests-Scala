@@ -41,6 +41,7 @@ class GetRequest(var url: String) {
   }
 }
 
+// Testing here
 object GetRequest {
   def main(args: Array[String]): Unit = {
     val getRequest: GetRequest = new GetRequest("https://docs.scala-lang.org")
