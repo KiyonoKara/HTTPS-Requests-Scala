@@ -12,6 +12,10 @@ import java.net.{ URL, HttpURLConnection }
 // Scala IO Source
 import scala.io.Source.{ fromURL, fromInputStream }
 
+// Utils
+import java.util.zip.GZIPInputStream
+import java.lang.StringBuilder
+
 class FormURL(var url: String)
 
 class GetRequest(var url: String) {
@@ -22,7 +26,7 @@ class GetRequest(var url: String) {
     str
   }
 
-  def GET(url: String, connectTimeout: Int = 5000, readTimeout: Int = 5000, requestMethod: String = "GET"): String = {
+  def GET(url: String, compressed: Boolean = true, connectTimeout: Int = 5000, readTimeout: Int = 5000, requestMethod: String = "GET"): String = {
     // Establishes connection
     val connection = new URL(url).openConnection.asInstanceOf[HttpURLConnection]
     // Sets a timeout
@@ -32,7 +36,35 @@ class GetRequest(var url: String) {
     // Sets the request method and defaults it to get if there is no other provided one
     connection.setRequestMethod(requestMethod)
 
-    // Input stream for data
+    // GZIP or not
+    if (compressed) {
+      // Set encoding to gzip
+      connection.setRequestProperty("Accept-Encoding", "gzip")
+
+      // GZIP
+      var reader: Reader = null
+      if (connection.getContentEncoding.equals("gzip")) {
+        reader = new InputStreamReader(new GZIPInputStream(connection.getInputStream))
+
+        // Empty char value
+        var ch: Int = 0
+
+        // String Builder to add to the final string
+        val stringBuilder: StringBuilder = new StringBuilder()
+
+        // Appending the data to a String Builder
+        while (true) {
+          ch = reader.read()
+          if (ch == -1) {
+            return stringBuilder.toString()
+          }
+
+          stringBuilder.append(ch.asInstanceOf[Char]).toString
+        }
+      }
+    }
+
+    // Basic input stream for data
     val inputStream = connection.getInputStream
     val content = fromInputStream(inputStream).mkString
     if (inputStream != null) inputStream.close()
