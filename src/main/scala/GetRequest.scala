@@ -14,7 +14,6 @@ import scala.io.Source.{ fromURL, fromInputStream }
 
 // Utils
 import java.util.zip.GZIPInputStream
-import java.lang.StringBuilder
 
 class FormURL(var url: String)
 
