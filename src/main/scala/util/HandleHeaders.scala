@@ -13,6 +13,11 @@ import java.net.HttpURLConnection
 import scala.collection.mutable
 
 class HandleHeaders(var headers: mutable.HashMap[String, String] = mutable.HashMap.empty[String, String]) {
+  /** Sanitizes the headers by setting them all to lowercase, this is not recommended for authorization tokens and may invalidate it
+   *
+   * @param headers - HashMap of headers with the key and value
+   * @return
+   */
   def sanitizeHeaders(headers: mutable.HashMap[String, String] = this.headers): mutable.HashMap[String, String] = {
     if (headers.nonEmpty) {
       headers.foreach(hash => {
