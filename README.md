@@ -1,17 +1,19 @@
 # HTTPS Request Scala
 
-A compact and modest implementation of HTTP/HTTP requests in Scala.
+A compact and modest implementation for making HTTP/HTTP requests in Scala.
 
 ## Overview
-An object-oriented approach to making HTTP/HTTPS requests and partial implementation of Java's networking package with great help from Scala's Source library.  
+An object-oriented approach to helping create HTTP/HTTPS requests, and a partial implementation & wrapper of Java's networking package with great help from Scala's Source library. This library simplifies the making of HTTP/HTTPS requests and wraps a number of Java's `HttpURLConnection` class in Scala. 
 
 ## Usage
-Main purpose of this repository is to be able to provide an implementation for HTTP/HTTPS requests and its use cases like getting or sending data. 
-This is mostly for the experience (for now).
+The main purpose of this repository is to provide an implementation for making HTTP/HTTPS requests. Some use cases for this implementation is getting data from an URL or sending data to an API. 
+The library strives to make requesting easier and more simplified, and to provide an example on using Java-Scala integration.
+
+## Author Notes
+This is more of a wrapper of several Java and Scala classes but it still implements the ability to make HTTP/HTTPS requests. There are a number of things that can improve and get more implementation(s) for.
 
 ## Contributing
-You may add on to this repository if you so choose.  
-As it usually goes, create a Pull Request for adding code, create an issue for bugs and/or feature requests.
+Read about contributing to this repository [here](CONTRIBUTING.md).
 
 ## License
 MIT License
