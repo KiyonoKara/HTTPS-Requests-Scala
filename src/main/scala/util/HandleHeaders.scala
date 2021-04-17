@@ -13,12 +13,12 @@ import java.net.HttpURLConnection
 import scala.collection.mutable
 
 class HandleHeaders(var headers: mutable.HashMap[String, String] = mutable.HashMap.empty[String, String]) {
-  /** Sanitizes the headers by setting them all to lowercase, this is not recommended for authorization tokens and may invalidate it
+  /** Lower cases the headers by setting them all to lowercase, this is not recommended for authorization tokens and may invalidate it
    *
    * @param headers - HashMap of headers with the key and value
    * @return
    */
-  def sanitizeHeaders(headers: mutable.HashMap[String, String] = this.headers): mutable.HashMap[String, String] = {
+  def lowerCaseHeaders(headers: mutable.HashMap[String, String] = this.headers): mutable.HashMap[String, String] = {
     if (headers.nonEmpty) {
       headers.foreach(hash => {
         val k: String = hash._1; val v: String = hash._2
@@ -34,8 +34,8 @@ class HandleHeaders(var headers: mutable.HashMap[String, String] = mutable.HashM
 
   def addHeaders(connection: HttpURLConnection, headers: mutable.HashMap[String, String] = this.headers): HttpURLConnection = {
     if (headers.nonEmpty) {
-      val sanitizedHeaders: mutable.HashMap[String, String] = this.sanitizeHeaders(headers)
-      sanitizedHeaders.foreach(kv => {
+      val theHeaders: mutable.HashMap[String, String] = headers
+      theHeaders.foreach(kv => {
         connection.addRequestProperty(kv._1, kv._2)
         return connection
       })
@@ -49,6 +49,6 @@ class HandleHeaders(var headers: mutable.HashMap[String, String] = mutable.HashM
 // Testing here
 object HandleHeaders extends App {
   val handleHeaders: HandleHeaders = new HandleHeaders()
-  val headers: mutable.HashMap[String, String] = handleHeaders.sanitizeHeaders(mutable.HashMap("Accept" -> "*/*", "Accept-Encoding" -> "gzip", "Authorization" -> "<Credentials>"))
+  val headers: mutable.HashMap[String, String] = handleHeaders.lowerCaseHeaders(mutable.HashMap("Accept" -> "*/*", "Accept-Encoding" -> "gzip", "Authorization" -> "<Credentials>"))
   println(headers)
 }
