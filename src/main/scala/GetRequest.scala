@@ -21,6 +21,8 @@ import util.{ Convert, HandleHeaders }
 class FormURL(var url: String)
 
 class GetRequest(var url: String) {
+  private val requestMethod: String = "GET"
+
   def defaultGET(url: String): String = {
     val source = fromURL(url)
     val str = source.mkString
@@ -30,7 +32,7 @@ class GetRequest(var url: String) {
 
   def GET(url: String, headers: Array[Array[String]] = Array[Array[String]](), compressed: Boolean = true, connectTimeout: Int = 5000, readTimeout: Int = 5000): String = {
     // Constants
-    val requestMethod: String = "GET"
+    val requestMethod: String = this.requestMethod
 
     // Establishes connection
     val connection = new URL(url).openConnection.asInstanceOf[HttpURLConnection]
