@@ -15,14 +15,21 @@ import scala.io.Source.{ fromURL, fromInputStream }
 // Collections
 import scala.collection.immutable.HashMap
 
+// Local utilities
+import util.{ Convert, HandleHeaders }
+
 class FormURL(var url: String)
 
 class DeleteRequest(var url: String) {
   private val requestMethod: String = "DELETE"
+  private val convert: Convert = new Convert()
+  private val handleHeaders: HandleHeaders = new HandleHeaders()
 
-  def DELETE(url: String, headers: HashMap[String, String] = HashMap.empty[String, String], connectTimeout: Int = 5000, readTimeout: Int = 5000): String = {
+  def DELETE(url: String, headers: Array[Array[String]] = Array[Array[String]](), connectTimeout: Int = 5000, readTimeout: Int = 5000): String = {
     // Constants
     val requestMethod: String = this.requestMethod
+    val convert = this.convert
+    val handleHeaders = this.handleHeaders
 
     // Establishes connection
     val connection = new URL(url).openConnection.asInstanceOf[HttpURLConnection]
@@ -33,12 +40,10 @@ class DeleteRequest(var url: String) {
     // Sets the request method to DELETE
     connection.setRequestMethod(requestMethod)
 
+    // Adds headers if any are provided
     if (headers.nonEmpty) {
-      headers.foreach(hash => {
-        val k: String = hash._1
-        val v: String = hash._2
-        connection.addRequestProperty(k, v)
-      })
+      val hashMapHeaders = convert.From2DtoHashMapMAX2(headers.asInstanceOf[Array[Array[Any]]])
+      handleHeaders.addHeaders(connection, hashMapHeaders.asInstanceOf[collection.mutable.HashMap[String, String]])
     }
 
     // Basic input stream for data
@@ -54,7 +59,7 @@ class DeleteRequest(var url: String) {
 object DeleteRequest {
   def main(args: Array[String]): Unit = {
     val deleteRequest: DeleteRequest = new DeleteRequest("https://reqbin.com/sample/delete/json")
-    val data = deleteRequest.DELETE(deleteRequest.url, HashMap("Accept" -> "*/*"))
+    val data = deleteRequest.DELETE(deleteRequest.url, Array(Array("Accept" -> "*/*"), Array("User-Agent", "*")))
     println(data)
   }
 }
