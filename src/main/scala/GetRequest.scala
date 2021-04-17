@@ -15,6 +15,9 @@ import scala.io.Source.{ fromURL, fromInputStream }
 // Utils
 import java.util.zip.GZIPInputStream
 
+// Local utils
+import util.{ Convert, HandleHeaders }
+
 class FormURL(var url: String)
 
 class GetRequest(var url: String) {
@@ -25,7 +28,7 @@ class GetRequest(var url: String) {
     str
   }
 
-  def GET(url: String, compressed: Boolean = true, connectTimeout: Int = 5000, readTimeout: Int = 5000): String = {
+  def GET(url: String, headers: Array[Array[String]] = Array[Array[String]](), compressed: Boolean = true, connectTimeout: Int = 5000, readTimeout: Int = 5000): String = {
     // Constants
     val requestMethod: String = "GET"
 
@@ -37,6 +40,12 @@ class GetRequest(var url: String) {
     connection.setReadTimeout(readTimeout)
     // Sets the request method and defaults it to get if there is no other provided one
     connection.setRequestMethod(requestMethod)
+
+    // Adds headers
+    if (headers.nonEmpty) {
+      val hashMapHeaders = new Convert().From2DtoHashMapMAX2(headers.asInstanceOf[Array[Array[Any]]])
+      new HandleHeaders().addHeaders(connection, hashMapHeaders.asInstanceOf[collection.mutable.HashMap[String, String]])
+    }
 
     // GZIP or not
     if (compressed) {
@@ -79,7 +88,7 @@ class GetRequest(var url: String) {
 object GetRequest {
   def main(args: Array[String]): Unit = {
     val getRequest: GetRequest = new GetRequest("https://docs.scala-lang.org")
-    val data = getRequest.GET(getRequest.url)
+    val data = getRequest.GET(getRequest.url, Array(Array("Accept", "*/*"), Array("User-Agent", "*")))
     println(data)
   }
 }
