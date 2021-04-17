@@ -49,13 +49,12 @@ class GetRequest(var url: String) {
     connection.setRequestMethod(requestMethod)
 
     // Adds headers
+    val hashMapHeaders = convert.From2DtoHashMapMAX2(headers.asInstanceOf[Array[Array[Any]]])
     if (headers.nonEmpty) {
-      val hashMapHeaders = convert.From2DtoHashMapMAX2(headers.asInstanceOf[Array[Array[Any]]])
       handleHeaders.addHeaders(connection, hashMapHeaders.asInstanceOf[collection.mutable.HashMap[String, String]])
     }
 
-    val hashMappedHeaders = convert.From2DtoHashMapMAX2(headers.asInstanceOf[Array[Array[Any]]])
-    val lowercaseHeaders = handleHeaders.lowerCaseHeaders(hashMappedHeaders.asInstanceOf[collection.mutable.HashMap[String, String]])
+    val lowercaseHeaders = handleHeaders.lowerCaseHeaders(hashMapHeaders.asInstanceOf[collection.mutable.HashMap[String, String]])
 
     // GZIP or not
     if (compressed || lowercaseHeaders.getOrElse("accept-encoding", "none").equals("gzip")) {
