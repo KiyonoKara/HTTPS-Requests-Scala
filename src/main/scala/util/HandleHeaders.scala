@@ -32,17 +32,18 @@ class HandleHeaders(var headers: mutable.HashMap[String, String] = mutable.HashM
     }
   }
 
-  def addHeaders(connection: HttpURLConnection, headers: mutable.HashMap[String, String] = this.headers): HttpURLConnection = {
+  /** Adds headers that are in the form of HashMap
+   *
+   * @param connection - Needs the connection to add headers
+   * @param headers - Requires the headers as a HashMap so it can be added to the connection headers
+   */
+  def addHeaders(connection: HttpURLConnection, headers: mutable.HashMap[String, String] = this.headers): Unit = {
     if (headers.nonEmpty) {
       val theHeaders: mutable.HashMap[String, String] = headers
       theHeaders.foreach(kv => {
         connection.addRequestProperty(kv._1, kv._2)
-        return connection
       })
-    } else {
-      return connection
     }
-    connection
   }
 }
 
