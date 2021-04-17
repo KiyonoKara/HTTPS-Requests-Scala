@@ -31,6 +31,7 @@ project/plugins/project/
 .history
 .cache-main
 .scade/
+.caches/
 
 # General
 *.class
