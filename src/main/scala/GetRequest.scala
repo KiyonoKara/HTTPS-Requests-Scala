@@ -33,6 +33,8 @@ class GetRequest(var url: String) {
   def GET(url: String, headers: Array[Array[String]] = Array[Array[String]](), compressed: Boolean = true, connectTimeout: Int = 5000, readTimeout: Int = 5000): String = {
     // Constants
     val requestMethod: String = this.requestMethod
+    val convert: Convert = new Convert()
+    val handleHeaders: HandleHeaders = new HandleHeaders()
 
     // Establishes connection
     val connection = new URL(url).openConnection.asInstanceOf[HttpURLConnection]
@@ -45,12 +47,15 @@ class GetRequest(var url: String) {
 
     // Adds headers
     if (headers.nonEmpty) {
-      val hashMapHeaders = new Convert().From2DtoHashMapMAX2(headers.asInstanceOf[Array[Array[Any]]])
-      new HandleHeaders().addHeaders(connection, hashMapHeaders.asInstanceOf[collection.mutable.HashMap[String, String]])
+      val hashMapHeaders = convert.From2DtoHashMapMAX2(headers.asInstanceOf[Array[Array[Any]]])
+      handleHeaders.addHeaders(connection, hashMapHeaders.asInstanceOf[collection.mutable.HashMap[String, String]])
     }
 
+    val hashMappedHeaders = convert.From2DtoHashMapMAX2(headers.asInstanceOf[Array[Array[Any]]])
+    val lowercaseHeaders = handleHeaders.lowerCaseHeaders(hashMappedHeaders.asInstanceOf[collection.mutable.HashMap[String, String]])
+
     // GZIP or not
-    if (compressed) {
+    if (compressed || lowercaseHeaders.getOrElse("accept-encoding", "none").equals("gzip")) {
       // Set encoding to gzip
       connection.setRequestProperty("Accept-Encoding", "gzip")
 
@@ -74,6 +79,8 @@ class GetRequest(var url: String) {
 
           stringBuilder.append(ch.asInstanceOf[Char]).toString
         }
+      } else {
+        this.defaultGET(url)
       }
     }
 
@@ -84,13 +91,25 @@ class GetRequest(var url: String) {
     // Return the content or data
     content
   }
+
+  def equals(str1: String, str2: String): Boolean = {
+    if (str1 == str2) return true
+    if ((str1 == null) || (str2 == null)) return false
+    str1.equals(str2)
+  }
 }
 
 // Testing here
 object GetRequest {
   def main(args: Array[String]): Unit = {
+    // With default compression
     val getRequest: GetRequest = new GetRequest("https://docs.scala-lang.org")
     val data = getRequest.GET(getRequest.url, Array(Array("Accept", "*/*"), Array("User-Agent", "*")))
     println(data)
+
+    // With compression disabled by the parameters, but enabled through headers
+    val getRequest2: GetRequest = new GetRequest("https://docs.scala-lang.org")
+    val data2 = getRequest2.GET(getRequest2.url, Array(Array("Accept", "*/*"), Array("User-Agent", "*"), Array("Accept-Encoding", "gzip")))
+    println(data2)
   }
 }
