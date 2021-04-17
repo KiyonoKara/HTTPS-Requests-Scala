@@ -18,7 +18,12 @@ import scala.collection.immutable.HashMap
 class FormURL(var url: String)
 
 class DeleteRequest(var url: String) {
-  def DELETE(url: String, headers: HashMap[String, String] = HashMap.empty[String, String], connectTimeout: Int = 5000, readTimeout: Int = 5000, requestMethod: String = "DELETE"): String = {
+  private val requestMethod: String = "DELETE"
+
+  def DELETE(url: String, headers: HashMap[String, String] = HashMap.empty[String, String], connectTimeout: Int = 5000, readTimeout: Int = 5000): String = {
+    // Constants
+    val requestMethod: String = this.requestMethod
+
     // Establishes connection
     val connection = new URL(url).openConnection.asInstanceOf[HttpURLConnection]
     // Sets a timeout
