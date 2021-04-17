@@ -25,7 +25,10 @@ class GetRequest(var url: String) {
     str
   }
 
-  def GET(url: String, compressed: Boolean = true, connectTimeout: Int = 5000, readTimeout: Int = 5000, requestMethod: String = "GET"): String = {
+  def GET(url: String, compressed: Boolean = true, connectTimeout: Int = 5000, readTimeout: Int = 5000): String = {
+    // Constants
+    val requestMethod: String = "GET"
+
     // Establishes connection
     val connection = new URL(url).openConnection.asInstanceOf[HttpURLConnection]
     // Sets a timeout
