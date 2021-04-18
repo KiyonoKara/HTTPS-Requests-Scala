@@ -12,7 +12,6 @@
 
 # SBT
 bin/
-project/
 target/
 build/
 .cache/
@@ -23,6 +22,7 @@ lib_managed/
 src_managed/
 project/boot/
 project/plugins/project/
+project/target
 
 # Mac
 .DS_Store
