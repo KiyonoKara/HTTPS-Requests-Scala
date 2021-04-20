@@ -43,6 +43,7 @@ class Convert(var hashMap: mutable.HashMap[Any, Any] = mutable.HashMap.empty[Any
         }
       }
     }
+    // Return
     hashMap
   }
 }
