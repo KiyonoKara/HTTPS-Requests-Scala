@@ -18,8 +18,6 @@ import scala.collection.immutable.HashMap
 // Local utilities
 import util.{ Convert, HandleHeaders }
 
-class FormURL(var url: String)
-
 class DeleteRequest(var url: String) {
   private val requestMethod: String = "DELETE"
   private val convert: Convert = new Convert()
@@ -59,7 +57,7 @@ class DeleteRequest(var url: String) {
 object DeleteRequest {
   def main(args: Array[String]): Unit = {
     val deleteRequest: DeleteRequest = new DeleteRequest("https://reqbin.com/sample/delete/json")
-    val data = deleteRequest.DELETE(deleteRequest.url, Array(Array("Accept" -> "*/*"), Array("User-Agent", "*")))
+    val data = deleteRequest.DELETE(deleteRequest.url, Array(Array("Accept", "*/*"), Array("User-Agent", "*")))
     println(data)
   }
 }
