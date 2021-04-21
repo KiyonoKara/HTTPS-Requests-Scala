@@ -18,8 +18,6 @@ import java.util.zip.GZIPInputStream
 // Local utils
 import util.{ Convert, HandleHeaders }
 
-class FormURL(var url: String)
-
 class GetRequest(var url: String) {
   // Private variables
   private val requestMethod: String = "GET"
