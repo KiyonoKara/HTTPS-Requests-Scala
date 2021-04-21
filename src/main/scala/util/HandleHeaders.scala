@@ -20,7 +20,6 @@ class HandleHeaders(var headers: mutable.HashMap[String, String] = mutable.HashM
    * @return
    */
   def lowerCaseHeaders(headers: mutable.HashMap[String, String] = this.headers): mutable.HashMap[String, String] = {
-    val theHeaders: HashMap[String, String] = headers.asInstanceOf[HashMap[String, String]]
     if (headers.nonEmpty) {
       headers.foreach(hash => {
         val k: String = hash._1; val v: String = hash._2
