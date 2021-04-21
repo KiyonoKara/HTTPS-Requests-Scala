@@ -52,12 +52,3 @@ class DeleteRequest(var url: String) {
     content
   }
 }
-
-// Testing here
-object DeleteRequest {
-  def main(args: Array[String]): Unit = {
-    val deleteRequest: DeleteRequest = new DeleteRequest("https://reqbin.com/sample/delete/json")
-    val data = deleteRequest.DELETE(deleteRequest.url, Array(Array("Accept", "*/*"), Array("User-Agent", "*")))
-    println(data)
-  }
-}
