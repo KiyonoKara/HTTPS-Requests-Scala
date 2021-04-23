@@ -19,6 +19,10 @@ import scala.collection.mutable
 class Convert(var hashMap: mutable.HashMap[Any, Any] = mutable.HashMap.empty[Any, Any], var array2d: Array[Array[Any]] = Array.empty[Array[Any]]) {
   /** Method which converts 2D Array into HashMap
    *
+   *    Example
+   *    val convert: Convert = new Convert()
+   *    val hash = convert.From2DtoHashMapMAX2(Array(Array("First-1", "Second-1"), Array("First-2", "Second-2")))
+   *
    * @param array2d - 2D Array must only have an array of 2 values per index for this algorithm to work
    * @return HashMap[Any, Any]
    */
@@ -46,11 +50,4 @@ class Convert(var hashMap: mutable.HashMap[Any, Any] = mutable.HashMap.empty[Any
     // Return
     hashMap
   }
-}
-
-// Testing for class, Convert
-object Convert extends App {
-  val convert: Convert = new Convert()
-  val hash = convert.From2DtoHashMapMAX2(Array(Array("First-1", "Second-1"), Array("First-2", "Second-2")))
-  println(hash)
 }
