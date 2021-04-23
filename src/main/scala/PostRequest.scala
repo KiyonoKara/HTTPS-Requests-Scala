@@ -15,18 +15,32 @@ import java.nio.charset.StandardCharsets
 // Scala IO Source
 import scala.io.Source.fromInputStream
 
-class PostRequest(var url: String, var data: String) {
-  def POST(url: String = this.url, data: String = this.data): Any = {
+// Utilities
+import util.{ Convert, HandleHeaders }
+
+class PostRequest(var url: String, var data: String = "{}") {
+  private val requestMethod: String = "POST"
+  private val convert: Convert = new Convert()
+  private val handleHeaders: HandleHeaders = new HandleHeaders()
+
+  def POST(url: String = this.url, data: String = this.data, headers: Array[Array[String]] = Array[Array[String]]()): Any = {
     // Open and establish the URL connection
     val connection: HttpURLConnection = new URL(url).openConnection.asInstanceOf[HttpURLConnection]
 
-    // Set it to POST
-    connection.setRequestMethod("POST")
+    // Initialize handlers
+    val handleHeaders: HandleHeaders = this.handleHeaders
 
-    // Setting the headers and other important data
-    connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8")
-    connection.setRequestProperty("User-Agent", "HTTPS-Request-Scala")
-    connection.setRequestProperty("Accept", "application/json")
+    // Set it to POST
+    val requestMethod: String = this.requestMethod
+    connection.setRequestMethod(requestMethod)
+
+    // Adds headers
+    val hashMapHeaders = convert.From2DtoHashMapMAX2(headers.asInstanceOf[Array[Array[Any]]])
+    if (headers.nonEmpty) {
+      handleHeaders.addHeaders(connection, hashMapHeaders.asInstanceOf[collection.mutable.HashMap[String, String]])
+    }
+
+    // Output to true
     connection.setDoOutput(true)
 
     // Processing the data
