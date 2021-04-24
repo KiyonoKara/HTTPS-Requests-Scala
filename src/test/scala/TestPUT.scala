@@ -1,3 +1,5 @@
+import HTTPSRequestsScala.PutRequest
+
 object TestPUT {
   def main(args: Array[String]): Unit = {
     val putRequest: PutRequest = new PutRequest("https://reqbin.com/echo/put/json")
