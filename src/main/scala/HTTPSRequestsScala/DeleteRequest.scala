@@ -1,22 +1,22 @@
+package HTTPSRequestsScala
+
 /**
  * Created by KaNguy - 04/14/2021
- * File DeleteRequest.scala
+ * File core.DeleteRequest.scala
  */
 
 // Data streaming and serialization
-import java.io.{ BufferedReader, IOException, InputStream, InputStreamReader, Reader }
 
 // Networking and web
-import java.net.{ URL, HttpURLConnection }
+import java.net.{HttpURLConnection, URL}
 
 // Scala IO Source
-import scala.io.Source.{ fromURL, fromInputStream }
+import scala.io.Source.fromInputStream
 
 // Collections
-import scala.collection.immutable.HashMap
 
 // Local utilities
-import util.{ Convert, HandleHeaders }
+import util.{Convert, HandleHeaders}
 
 class DeleteRequest(var url: String) {
   private val requestMethod: String = "DELETE"
