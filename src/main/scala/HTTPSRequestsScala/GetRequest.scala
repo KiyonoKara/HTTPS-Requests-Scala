@@ -1,22 +1,24 @@
+package HTTPSRequestsScala
+
 /**
  * Created by KaNguy - 04/09/2021
- * File GetRequest.scala
+ * File core.GetRequest.scala
  */
 
 // Data streaming and serialization
-import java.io.{ BufferedReader, IOException, InputStream, InputStreamReader, Reader }
+import java.io.{InputStreamReader, Reader}
 
 // Networking and web
-import java.net.{ URL, HttpURLConnection }
+import java.net.{HttpURLConnection, URL}
 
 // Scala IO Source
-import scala.io.Source.{ fromURL, fromInputStream }
+import scala.io.Source.{fromInputStream, fromURL}
 
 // Utils
 import java.util.zip.GZIPInputStream
 
 // Local utils
-import util.{ Convert, HandleHeaders }
+import util.{Convert, HandleHeaders}
 
 class GetRequest(var url: String) {
   // Private variables
