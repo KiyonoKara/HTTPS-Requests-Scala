@@ -1,3 +1,5 @@
+import HTTPSRequestsScala.GetRequest
+
 object TestGET {
   def main(args: Array[String]): Unit = {
     // With default compression
