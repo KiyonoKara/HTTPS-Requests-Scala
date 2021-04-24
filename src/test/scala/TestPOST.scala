@@ -1,3 +1,5 @@
+import HTTPSRequestsScala.PostRequest
+
 object TestPOST {
   def main(args: Array[String]): Unit = {
     val postRequest: PostRequest = new PostRequest("https://reqres.in/api/users")
