@@ -1,10 +1,12 @@
+package HTTPSRequestsScala
+
 /**
  * Created by KaNguy - 04/13/2021
- * File PostRequest.scala
+ * File core.PostRequest.scala
  */
 
 // Java IO streaming imports
-import java.io.{OutputStream, InputStream}
+import java.io.{InputStream, OutputStream}
 
 // URL connection for requesting
 import java.net.{HttpURLConnection, URL}
@@ -16,7 +18,7 @@ import java.nio.charset.StandardCharsets
 import scala.io.Source.fromInputStream
 
 // Utilities
-import util.{ Convert, HandleHeaders }
+import util.{Convert, HandleHeaders}
 
 class PostRequest(var url: String, var data: String = "{}") {
   private val requestMethod: String = "POST"
