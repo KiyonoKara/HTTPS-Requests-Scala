@@ -16,10 +16,10 @@ import scala.io.Source.fromInputStream
 // Collections
 
 // Local utilities
-import util.{Convert, HandleHeaders}
+import util.{Convert, HandleHeaders, Constants}
 
 class DeleteRequest(var url: String) {
-  private val requestMethod: String = "DELETE"
+  private val requestMethod: String = Constants.DELETE
   private val convert: Convert = new Convert()
   private val handleHeaders: HandleHeaders = new HandleHeaders()
 
