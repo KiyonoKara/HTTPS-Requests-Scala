@@ -18,11 +18,11 @@ import scala.io.Source.{fromInputStream, fromURL}
 import java.util.zip.GZIPInputStream
 
 // Local utils
-import util.{Convert, HandleHeaders}
+import util.{Convert, HandleHeaders, Constants}
 
 class GetRequest(var url: String) {
   // Private variables
-  private val requestMethod: String = "GET"
+  private val requestMethod: String = Constants.GET
   private val convert: Convert = new Convert()
   private val handleHeaders: HandleHeaders = new HandleHeaders()
 
