@@ -18,10 +18,10 @@ import java.nio.charset.StandardCharsets
 import scala.io.Source.fromInputStream
 
 // Utilities
-import util.{Convert, HandleHeaders}
+import util.{Convert, HandleHeaders, Constants}
 
 class PutRequest(var url: String, var data: String = "{}") {
-  private val requestMethod: String = "PUT"
+  private val requestMethod: String = Constants.PUT
   private val convert: Convert = new Convert()
   private val handleHeaders: HandleHeaders = new HandleHeaders()
 
