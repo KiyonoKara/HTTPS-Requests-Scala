@@ -18,10 +18,10 @@ import java.nio.charset.StandardCharsets
 import scala.io.Source.fromInputStream
 
 // Utilities
-import util.{Convert, HandleHeaders}
+import util.{Convert, HandleHeaders, Constants}
 
 class PostRequest(var url: String, var data: String = "{}") {
-  private val requestMethod: String = "POST"
+  private val requestMethod: String = Constants.POST
   private val convert: Convert = new Convert()
   private val handleHeaders: HandleHeaders = new HandleHeaders()
 
