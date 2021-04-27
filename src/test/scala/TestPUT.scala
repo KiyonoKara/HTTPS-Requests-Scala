@@ -1,4 +1,4 @@
-import HTTPSRequestsScala.PutRequest
+import HTTPSRequestsScala.Single.PutRequest
 
 object TestPUT {
   def main(args: Array[String]): Unit = {

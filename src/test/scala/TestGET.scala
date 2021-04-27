@@ -1,4 +1,4 @@
-import HTTPSRequestsScala.GetRequest
+import HTTPSRequestsScala.Single.GetRequest
 
 object TestGET {
   def main(args: Array[String]): Unit = {

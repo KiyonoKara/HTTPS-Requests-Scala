@@ -1,4 +1,4 @@
-import HTTPSRequestsScala.DeleteRequest
+import HTTPSRequestsScala.Single.DeleteRequest
 
 object TestDELETE {
   def main(args: Array[String]): Unit = {

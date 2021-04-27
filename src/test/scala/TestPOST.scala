@@ -1,4 +1,4 @@
-import HTTPSRequestsScala.PostRequest
+import HTTPSRequestsScala.Single.PostRequest
 
 object TestPOST {
   def main(args: Array[String]): Unit = {
