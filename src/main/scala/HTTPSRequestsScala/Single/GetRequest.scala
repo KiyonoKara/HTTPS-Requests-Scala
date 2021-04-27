@@ -1,4 +1,4 @@
-package HTTPSRequestsScala
+package HTTPSRequestsScala.Single
 
 /**
  * Created by KaNguy - 04/09/2021
@@ -17,8 +17,8 @@ import scala.io.Source.{fromInputStream, fromURL}
 // Utils
 import java.util.zip.GZIPInputStream
 
-// Local utils
-import util.{Convert, HandleHeaders, Constants}
+// Local utilities
+import util.{Constants, Convert, HandleHeaders}
 
 class GetRequest(var url: String) {
   // Private variables
