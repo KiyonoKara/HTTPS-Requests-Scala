@@ -1,3 +1,5 @@
+package Single
+
 import HTTPSRequestsScala.Single.PostRequest
 
 object TestPOST {
