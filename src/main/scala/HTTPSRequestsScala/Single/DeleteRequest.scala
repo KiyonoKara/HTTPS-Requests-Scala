@@ -1,4 +1,4 @@
-package HTTPSRequestsScala
+package HTTPSRequestsScala.Single
 
 /**
  * Created by KaNguy - 04/14/2021
@@ -16,7 +16,7 @@ import scala.io.Source.fromInputStream
 // Collections
 
 // Local utilities
-import util.{Convert, HandleHeaders, Constants}
+import util.{Constants, Convert, HandleHeaders}
 
 class DeleteRequest(var url: String) {
   private val requestMethod: String = Constants.DELETE
