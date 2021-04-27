@@ -1,3 +1,5 @@
+package Single
+
 import HTTPSRequestsScala.Single.DeleteRequest
 
 object TestDELETE {
