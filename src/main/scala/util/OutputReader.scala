@@ -1,5 +1,10 @@
 package util
 
+/**
+ * Created by KaNguy - 04/26/2021
+ * File util.OutputReader.scala
+ */
+
 // IO imports
 import java.io.{InputStreamReader, InputStream, Reader}
 
