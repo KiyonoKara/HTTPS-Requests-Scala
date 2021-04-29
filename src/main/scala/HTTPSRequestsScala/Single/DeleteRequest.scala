@@ -18,12 +18,12 @@ import scala.io.Source.fromInputStream
 // Local utilities
 import util.{Constants, Convert, HandleHeaders}
 
-class DeleteRequest(var url: String) {
+class DeleteRequest(var url: String = null) {
   private val requestMethod: String = Constants.DELETE
   private val convert: Convert = new Convert()
   private val handleHeaders: HandleHeaders = new HandleHeaders()
 
-  def DELETE(url: String, headers: Array[Array[String]] = Array[Array[String]](), connectTimeout: Int = 5000, readTimeout: Int = 5000): String = {
+  def DELETE(url: String = this.url, headers: Array[Array[String]] = Array[Array[String]](), connectTimeout: Int = 5000, readTimeout: Int = 5000): String = {
     // Constants
     val requestMethod: String = this.requestMethod
     val convert = this.convert
