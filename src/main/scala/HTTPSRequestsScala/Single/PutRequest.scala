@@ -20,7 +20,7 @@ import scala.io.Source.fromInputStream
 // Utilities
 import util.{Constants, Convert, HandleHeaders}
 
-class PutRequest(var url: String, var data: String = "{}") {
+class PutRequest(var url: String = null, var data: String = "{}") {
   private val requestMethod: String = Constants.PUT
   private val convert: Convert = new Convert()
   private val handleHeaders: HandleHeaders = new HandleHeaders()
