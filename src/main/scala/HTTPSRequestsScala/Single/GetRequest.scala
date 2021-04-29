@@ -20,20 +20,20 @@ import java.util.zip.GZIPInputStream
 // Local utilities
 import util.{Constants, Convert, HandleHeaders}
 
-class GetRequest(var url: String) {
+class GetRequest(var url: String = null) {
   // Private variables
   private val requestMethod: String = Constants.GET
   private val convert: Convert = new Convert()
   private val handleHeaders: HandleHeaders = new HandleHeaders()
 
-  def defaultGET(url: String): String = {
+  def defaultGET(url: String = this.url): String = {
     val source = fromURL(url)
     val str = source.mkString
     source.close()
     str
   }
 
-  def GET(url: String, headers: Array[Array[String]] = Array[Array[String]](), compressed: Boolean = true, connectTimeout: Int = 5000, readTimeout: Int = 5000): String = {
+  def GET(url: String = this.url, headers: Array[Array[String]] = Array[Array[String]](), compressed: Boolean = true, connectTimeout: Int = 5000, readTimeout: Int = 5000): String = {
     // Constants
     val requestMethod: String = this.requestMethod
     val convert: Convert = this.convert
