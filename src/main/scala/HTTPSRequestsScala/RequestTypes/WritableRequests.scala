@@ -24,7 +24,16 @@ import java.util.zip.GZIPInputStream
 import util.{Constants, Convert, HandleHeaders, OutputReader}
 
 class WritableRequests() {
+  /**
+   *
+   * @param url - String; Provide an url for the request
+   * @param method - String; Provide a method, there are no defaults since all are formatted the same but have vastly different outcomes.
+   * @param data - String; Usually data is provided as JSON in the form of a string, but any data in the form of a string is accepted.
+   * @param headers - 2D Array; A 2D array which is `Array[Array[String]]`
+   * @return output - String; Most writable requests have output, thus, it will always guarantee a string
+   */
   def request(url: String, method: String, data: String = null, headers: Array[Array[String]] = Array[Array[String]]()): String = {
+    // Meant for POST, PUT, PATCH, and DELETE requests
     val connection: HttpURLConnection = new URL(url).openConnection.asInstanceOf[HttpURLConnection]
     connection.setRequestMethod(method)
     val convert: Convert = new Convert()
@@ -40,6 +49,13 @@ class WritableRequests() {
     }
   }
 
+  /**
+   *
+   * @param connection - HttpURLConnection; The connection established will be used so it can be written to.
+   * @param method - String; Method is always required, cannot default to a common request method
+   * @param data - String; Preferably JSON data in the form of a string.
+   * @return output - String; Generally returns the output of the Output Reader
+   */
   def writeToRequest(connection: HttpURLConnection, method: String, data: String): String = {
     val theMethod: String = method.toUpperCase
     if (theMethod.equals(Constants.POST)) connection.setDoOutput(true)
@@ -68,19 +84,5 @@ class WritableRequests() {
         content
       }
     }
-  }
-}
-
-// Temporary tests, will move to new file later
-object Test {
-  def main(args: Array[String]): Unit = {
-    val writableRequests: WritableRequests = new WritableRequests()
-    val post = writableRequests.request(
-      "https://reqres.in/api/users",
-      "POST",
-      "{\"name\": \"Li Xi\", \"job\": \"Scala POST\"}",
-      Array(Array("Content-Type", "application/json; charset=UTF-8"), Array("User-Agent", "Scala"), Array("Accept", "application/json"))
-    )
-    println(post)
   }
 }
