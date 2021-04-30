@@ -30,4 +30,9 @@ object Constants {
   val OPTIONS: String = "OPTIONS"
   /** Connection; Tries to establish an HTTP tunnel, mainly for SSL connections */
   val CONNECT: String = "CONNECT"
+
+  /**
+   * Timeouts
+   */
+  val DEFAULT_TIMEOUT: Int = 5000
 }
