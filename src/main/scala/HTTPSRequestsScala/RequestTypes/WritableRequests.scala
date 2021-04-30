@@ -58,7 +58,7 @@ class WritableRequests() {
    */
   def writeToRequest(connection: HttpURLConnection, method: String, data: String): String = {
     val theMethod: String = method.toUpperCase
-    if (theMethod.equals(Constants.POST)) connection.setDoOutput(true)
+    if (theMethod.equals(Constants.POST) || theMethod.equals(Constants.PUT)) connection.setDoOutput(true)
 
     // Processing the data
     val byte: Array[Byte] = data.getBytes(StandardCharsets.UTF_8)
