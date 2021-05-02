@@ -5,17 +5,12 @@ package HTTPSRequestsScala
  * File HTTPSRequestsScala.Request.scala
  */
 
-// Data streaming and serialization
-import java.io.{InputStreamReader, Reader}
-
 // Networking and web
 import java.net.{HttpURLConnection, URL}
 
 // Scala IO Source
-import scala.io.Source.{fromInputStream, fromURL}
+import scala.io.Source.fromInputStream
 
-// Utils
-import java.util.zip.GZIPInputStream
 
 // Request classes
 import RequestTypes.WritableRequests
