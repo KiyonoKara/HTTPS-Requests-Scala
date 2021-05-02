@@ -6,7 +6,7 @@ package HTTPSRequestsScala.RequestTypes
  */
 
 // Data streaming and serialization
-import java.io.{InputStreamReader, Reader, InputStream, OutputStream}
+import java.io.{InputStream, OutputStream}
 
 // Networking and web
 import java.net.{HttpURLConnection, URL}
@@ -16,9 +16,6 @@ import java.nio.charset.StandardCharsets
 
 // Scala IO Source
 import scala.io.Source.fromInputStream
-
-// Utils
-import java.util.zip.GZIPInputStream
 
 // Local utils
 import util.{Constants, Convert, HandleHeaders, OutputReader}
