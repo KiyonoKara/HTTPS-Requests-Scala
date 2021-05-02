@@ -11,7 +11,6 @@ import java.net.HttpURLConnection
 
 // Collection(s)
 import scala.collection.mutable
-import scala.collection.immutable.HashMap
 
 class HandleHeaders(var headers: mutable.HashMap[String, String] = mutable.HashMap.empty[String, String]) {
   /** Lower cases the headers by setting them all to lowercase, this is not recommended for authorization tokens and may invalidate it
