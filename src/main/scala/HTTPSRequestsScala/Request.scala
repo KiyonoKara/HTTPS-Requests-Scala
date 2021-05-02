@@ -18,11 +18,26 @@ import RequestTypes.WritableRequests
 // Local utilities
 import util.{Constants, Convert, HandleHeaders, OutputReader}
 
+/** Main class for making HTTP/HTTPS requests
+ *
+ * @param url - String; Provide an URL with its path (if you are requesting with the path)
+ * @param method - String; Request method, refer to the Constants file for supported methods
+ * @param headers - 2D Array; Provide headers in the form of a 2D array where the first element contains the key, second element contains the value
+ */
 class Request(var url: String = null, var method: String = "GET", headers: Array[Array[String]] = Array[Array[String]]()) {
+  // Constants and handles
   private val convert: Convert = new Convert()
   private val handleHeaders: HandleHeaders = new HandleHeaders()
   private val writableRequests: WritableRequests = new WritableRequests()
 
+  /** Class method that ultimately does the requesting
+   *
+   * @param url - String; Provide an URL
+   * @param method - String; Request method, defaults to the class' default method
+   * @param headers - 2D Array; Headers for requesting
+   * @param data - String; Preferably JSON data that is in the form of a string
+   * @return
+   */
   def request(url: String = this.url, method: String = this.method, headers: Array[Array[String]] = this.headers, data: String = null): String = {
     // Create the connection from the provided URL
     val connection = new URL(url).openConnection.asInstanceOf[HttpURLConnection]
