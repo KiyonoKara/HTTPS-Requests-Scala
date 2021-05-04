@@ -5,6 +5,13 @@ package util
  * File util.Constants.scala
  */
 
+/**
+ * HTTP-related constants
+ * {{{
+ *   import util.Constants
+ *   val GET: String = Constants.GET
+ * }}}
+ */
 object Constants {
   /**
    * Supported methods
