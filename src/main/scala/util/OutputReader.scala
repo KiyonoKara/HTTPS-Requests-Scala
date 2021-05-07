@@ -20,7 +20,8 @@ object OutputReader {
     if (inputStream != null) connectionInputStream = inputStream else connectionInputStream = connection.getInputStream
 
     var reader: Reader = null
-    if (connection.getContentEncoding != null) {
+
+    if (connection.getContentEncoding != null && connection.getContentEncoding.equals("gzip")) {
       reader = new InputStreamReader(new GZIPInputStream(connectionInputStream))
     } else {
       reader = new InputStreamReader(connection.getInputStream)
