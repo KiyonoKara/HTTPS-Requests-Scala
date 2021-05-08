@@ -16,7 +16,7 @@ import scala.io.Source.fromInputStream
 import RequestTypes.WritableRequests
 
 // Local utilities
-import util.{Constants, Convert, HandleHeaders, OutputReader}
+import util.{Constants, Convert, MutableHeadings, OutputReader}
 
 /** Main class for making HTTP/HTTPS requests
  *
@@ -27,7 +27,7 @@ import util.{Constants, Convert, HandleHeaders, OutputReader}
 class Request(var url: String = null, var method: String = "GET", headers: Array[Array[String]] = Array[Array[String]]()) {
   // Constants and handles
   private val convert: Convert = new Convert()
-  private val handleHeaders: HandleHeaders = new HandleHeaders()
+  private val handleHeaders: MutableHeadings = new MutableHeadings()
   private val writableRequests: WritableRequests = new WritableRequests()
 
   /** Class method that ultimately does the requesting
