@@ -13,21 +13,15 @@ import java.net.{HttpURLConnection, URL}
 // Scala IO Source
 import scala.io.Source.fromInputStream
 
-// Collections
-
 // Local utilities
-import util.{Constants, Convert, MutableHeadings}
+import util.{Constants, HandleHeaders}
 
 class DeleteRequest(var url: String = null) {
   private val requestMethod: String = Constants.DELETE
-  private val convert: Convert = new Convert()
-  private val handleHeaders: MutableHeadings = new MutableHeadings()
 
-  def DELETE(url: String = this.url, headers: Array[Array[String]] = Array[Array[String]](), connectTimeout: Int = 5000, readTimeout: Int = 5000): String = {
+  def DELETE(url: String = this.url, headers: Iterable[(String, String)] = Nil, connectTimeout: Int = 5000, readTimeout: Int = 5000): String = {
     // Constants
     val requestMethod: String = this.requestMethod
-    val convert = this.convert
-    val handleHeaders = this.handleHeaders
 
     // Establishes connection
     val connection = new URL(url).openConnection.asInstanceOf[HttpURLConnection]
@@ -38,11 +32,8 @@ class DeleteRequest(var url: String = null) {
     // Sets the request method to DELETE
     connection.setRequestMethod(requestMethod)
 
-    // Adds headers if any are provided
-    if (headers.nonEmpty) {
-      val hashMapHeaders = convert.From2DtoHashMapMAX2(headers.asInstanceOf[Array[Array[Any]]])
-      handleHeaders.addHeaders(connection, hashMapHeaders.asInstanceOf[collection.mutable.HashMap[String, String]])
-    }
+    // Adds headers
+    HandleHeaders.setHeaders(connection, headers)
 
     // Basic input stream for data
     val inputStream = connection.getInputStream
