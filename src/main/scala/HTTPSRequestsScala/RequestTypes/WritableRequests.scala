@@ -18,7 +18,7 @@ import java.nio.charset.StandardCharsets
 import scala.io.Source.fromInputStream
 
 // Local utils
-import util.{Constants, Convert, HandleHeaders, OutputReader}
+import util.{Constants, Convert, MutableHeadings, OutputReader}
 
 class WritableRequests() {
   /**
@@ -34,7 +34,7 @@ class WritableRequests() {
     val connection: HttpURLConnection = new URL(url).openConnection.asInstanceOf[HttpURLConnection]
     connection.setRequestMethod(method)
     val convert: Convert = new Convert()
-    val handleHeaders: HandleHeaders = new HandleHeaders()
+    val handleHeaders: MutableHeadings = new MutableHeadings()
     val hashMapHeaders = convert.From2DtoHashMapMAX2(headers.asInstanceOf[Array[Array[Any]]])
     if (headers.nonEmpty) {
       handleHeaders.addHeaders(connection, hashMapHeaders.asInstanceOf[collection.mutable.HashMap[String, String]])
