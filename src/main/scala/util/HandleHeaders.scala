@@ -10,12 +10,13 @@ import java.net.HttpURLConnection
 
 object HandleHeaders {
   def setHeaders(connection: HttpURLConnection, headers: Iterable[(String, String)] = Nil): Unit = {
-    if (headers.isEmpty) { return }
-    headers foreach {
-      case (key, value) =>
-        try {
-          connection.setRequestProperty(key, value)
-        }
+    if (headers.nonEmpty) {
+      headers foreach {
+        case (key, value) =>
+          try {
+            connection.setRequestProperty(key, value)
+          }
+      }
     }
   }
 
