@@ -18,19 +18,19 @@ import java.nio.charset.StandardCharsets
 import scala.io.Source.fromInputStream
 
 // Utilities
-import util.{Constants, Convert, HandleHeaders}
+import util.{Constants, Convert, MutableHeadings}
 
 class PutRequest(var url: String = null, var data: String = "{}") {
   private val requestMethod: String = Constants.PUT
   private val convert: Convert = new Convert()
-  private val handleHeaders: HandleHeaders = new HandleHeaders()
+  private val handleHeaders: MutableHeadings = new MutableHeadings()
 
   def PUT(url: String = this.url, data: String = this.data, headers: Array[Array[String]] = Array[Array[String]]()): Any = {
     // Open and establish the URL connection
     val connection: HttpURLConnection = new URL(url).openConnection.asInstanceOf[HttpURLConnection]
 
     // Initialize handlers
-    val handleHeaders: HandleHeaders = this.handleHeaders
+    val handleHeaders: MutableHeadings = this.handleHeaders
 
     // Set it to PUT
     val requestMethod: String = this.requestMethod
