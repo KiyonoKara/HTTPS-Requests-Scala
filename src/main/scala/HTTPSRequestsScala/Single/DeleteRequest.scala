@@ -16,12 +16,12 @@ import scala.io.Source.fromInputStream
 // Collections
 
 // Local utilities
-import util.{Constants, Convert, HandleHeaders}
+import util.{Constants, Convert, MutableHeadings}
 
 class DeleteRequest(var url: String = null) {
   private val requestMethod: String = Constants.DELETE
   private val convert: Convert = new Convert()
-  private val handleHeaders: HandleHeaders = new HandleHeaders()
+  private val handleHeaders: MutableHeadings = new MutableHeadings()
 
   def DELETE(url: String = this.url, headers: Array[Array[String]] = Array[Array[String]](), connectTimeout: Int = 5000, readTimeout: Int = 5000): String = {
     // Constants
