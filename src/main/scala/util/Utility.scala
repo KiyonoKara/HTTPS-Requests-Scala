@@ -33,5 +33,15 @@ object Utility {
   def getKey(map: Map[String, String] = Map.empty[String, String], value: String): String = {
     map.find(_._2.toLowerCase.contains(value)).map(_._1.toString.toLowerCase).getOrElse("")
   }
+
+  def lowerCaseSingleKV(map: Map[String, String] = Map.empty[String, String], key: String): Map[String, String] = {
+    val fin: Map[String, String] = Map.empty[String, String]
+    map.foreach(item => {
+      if (item._1 == key) {
+        return fin updated (item._1.toLowerCase, item._2.toLowerCase)
+      }
+    })
+    fin
+  }
 }
 
