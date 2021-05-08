@@ -30,8 +30,8 @@ object Utility {
     s"""$newURL$separator$encodedURLParameters"""
   }
 
-  def getKey(map: Map[String, String] = Map.empty[String, String], value: String): String = {
-    map.find(_._2.toLowerCase.contains(value)).map(_._1.toString.toLowerCase).getOrElse("")
+  def getKeyByValue(map: Map[String, String] = Map.empty[String, String], value: String): String = {
+    map.find(_._2.contains(value)).map(_._1.toString).getOrElse("")
   }
 
   def lowerCaseSingleKV(map: Map[String, String] = Map.empty[String, String], key: String): Map[String, String] = {
