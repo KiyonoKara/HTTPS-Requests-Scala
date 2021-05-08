@@ -15,7 +15,7 @@ import java.security.cert.X509Certificate
 import java.security.SecureRandom
 import javax.net.ssl.HttpsURLConnection
 
-object Verify {
+object Utility {
   def encodeURLParameters(str: Iterable[(String, String)]): String = {
     str.map({
       case (k, v) =>
@@ -26,8 +26,12 @@ object Verify {
   def createURL(url: String, urlParameters: Iterable[(String, String)] = Nil): String = {
     val newURL: URL = new URL(new URI(url).toASCIIString)
     val separator: String = if (newURL.getQuery != null) "&" else "?"
-    val encodedURLParameters: String = Verify.encodeURLParameters(urlParameters)
-    s"""${newURL}${separator}${encodedURLParameters}"""
+    val encodedURLParameters: String = Utility.encodeURLParameters(urlParameters)
+    s"""$newURL$separator$encodedURLParameters"""
+  }
+
+  def getKey(map: Map[String, String] = Map.empty[String, String], value: String): String = {
+    map.find(_._2.toLowerCase.contains(value)).map(_._1.toString.toLowerCase).getOrElse("")
   }
 }
 
