@@ -18,13 +18,11 @@ import scala.io.Source.{fromInputStream, fromURL}
 import java.util.zip.GZIPInputStream
 
 // Local utilities
-import util.{Constants, Convert, MutableHeadings}
+import util.{Constants, HandleHeaders, Utility}
 
 class GetRequest(var url: String = null) {
   // Private variables
   private val requestMethod: String = Constants.GET
-  private val convert: Convert = new Convert()
-  private val handleHeaders: MutableHeadings = new MutableHeadings()
 
   def defaultGET(url: String = this.url): String = {
     val source = fromURL(url)
@@ -33,11 +31,9 @@ class GetRequest(var url: String = null) {
     str
   }
 
-  def GET(url: String = this.url, headers: Array[Array[String]] = Array[Array[String]](), compressed: Boolean = true, connectTimeout: Int = 5000, readTimeout: Int = 5000): String = {
+  def GET(url: String = this.url, headers: Iterable[(String, String)] = Nil, compressed: Boolean = true, connectTimeout: Int = 5000, readTimeout: Int = 5000): String = {
     // Constants
     val requestMethod: String = this.requestMethod
-    val convert: Convert = this.convert
-    val handleHeaders: MutableHeadings = this.handleHeaders
 
     // Establishes connection
     val connection = new URL(url).openConnection.asInstanceOf[HttpURLConnection]
@@ -48,16 +44,23 @@ class GetRequest(var url: String = null) {
     // Sets the request method and defaults it to get if there is no other provided one
     connection.setRequestMethod(requestMethod)
 
-    // Adds headers
-    val hashMapHeaders = convert.From2DtoHashMapMAX2(headers.asInstanceOf[Array[Array[Any]]])
+    // Sets headers
     if (headers.nonEmpty) {
-      handleHeaders.addHeaders(connection, hashMapHeaders.asInstanceOf[collection.mutable.HashMap[String, String]])
+      HandleHeaders.setHeaders(connection, headers)
     }
 
-    val lowercaseHeaders = handleHeaders.lowerCaseHeaders(hashMapHeaders.asInstanceOf[collection.mutable.HashMap[String, String]])
-
     // GZIP or not
-    if (compressed || lowercaseHeaders.getOrElse("accept-encoding", "none").equals("gzip")) {
+    val acceptEncodingKey: String = headers match {
+      case map: Map[String, String] =>
+        Utility.getKeyByValue(map, "gzip")
+    }
+
+    val acceptEncodingValue: String = headers match {
+      case map: Map[String, String] =>
+        map.getOrElse(acceptEncodingKey, "")
+    }
+
+    if (compressed || acceptEncodingValue.equals("gzip")) {
       // Set encoding to gzip
       connection.setRequestProperty("Accept-Encoding", "gzip")
 
