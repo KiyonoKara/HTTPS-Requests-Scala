@@ -18,13 +18,13 @@ import scala.io.Source.{fromInputStream, fromURL}
 import java.util.zip.GZIPInputStream
 
 // Local utilities
-import util.{Constants, Convert, HandleHeaders}
+import util.{Constants, Convert, MutableHeadings}
 
 class GetRequest(var url: String = null) {
   // Private variables
   private val requestMethod: String = Constants.GET
   private val convert: Convert = new Convert()
-  private val handleHeaders: HandleHeaders = new HandleHeaders()
+  private val handleHeaders: MutableHeadings = new MutableHeadings()
 
   def defaultGET(url: String = this.url): String = {
     val source = fromURL(url)
@@ -37,7 +37,7 @@ class GetRequest(var url: String = null) {
     // Constants
     val requestMethod: String = this.requestMethod
     val convert: Convert = this.convert
-    val handleHeaders: HandleHeaders = this.handleHeaders
+    val handleHeaders: MutableHeadings = this.handleHeaders
 
     // Establishes connection
     val connection = new URL(url).openConnection.asInstanceOf[HttpURLConnection]
