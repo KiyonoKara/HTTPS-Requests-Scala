@@ -8,7 +8,7 @@ object TestPOST {
     val post = postRequest.POST(
       "https://reqres.in/api/users",
       "{\"name\": \"Li Xi\", \"job\": \"Scala POST\"}",
-            Array(Array("Content-Type", "application/json; charset=UTF-8"), Array("User-Agent", "Scala"), Array("Accept", "application/json"))
+            Map("Content-Type" -> "application/json; charset=UTF-8", "User-Agent" -> "Scala", "Accept" -> "application/json")
     )
     println(post)
   }
