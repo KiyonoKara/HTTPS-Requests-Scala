@@ -6,17 +6,19 @@ package HTTPSRequestsScala
  */
 
 // Networking and web
-import java.net.{HttpURLConnection, URL}
+import java.net.{HttpURLConnection, ProtocolException, URL}
 
 // Scala IO Source
 import scala.io.Source.fromInputStream
-
 
 // Request classes
 import RequestTypes.WritableRequests
 
 // Local utilities
 import util.{Constants, OutputReader, HandleHeaders}
+
+// Other
+import java.lang.reflect.Field
 
 /** Main class for making HTTP/HTTPS requests
  *
@@ -25,8 +27,13 @@ import util.{Constants, OutputReader, HandleHeaders}
  * @param headers - Iterable[(String, String)]; Headers in the form of a Map collection is primarily valid
  */
 class Request(var url: String = null, var method: String = "GET", headers: Iterable[(String, String)] = Nil) {
-  // Constants and handles
   private val writableRequests: WritableRequests = new WritableRequests()
+  private lazy val methodField: Field = {
+    val method = classOf[HttpURLConnection].getDeclaredField("method")
+    method.setAccessible(true)
+    method
+  }
+
 
   /** Class method that ultimately does the requesting
    *
@@ -41,7 +48,22 @@ class Request(var url: String = null, var method: String = "GET", headers: Itera
     val connection = new URL(url).openConnection.asInstanceOf[HttpURLConnection]
 
     // Set the request method
-    connection.setRequestMethod(method)
+    if (Constants.HTTPMethods.contains(method.toUpperCase)) {
+      connection.setRequestMethod(method.toUpperCase)
+    } else if (method.toUpperCase.equals(Constants.PATCH)) {
+      connection.setRequestProperty("X-HTTP-Method-Override", "PATCH")
+      connection.setRequestMethod(Constants.PUT)
+    } else {
+      connection match {
+        case httpURLConnection: HttpURLConnection =>
+          httpURLConnection.getClass.getDeclaredFields.find(_.getName == "delegate") foreach { i =>
+            i.setAccessible(true)
+            this.methodField.set(i.get(httpURLConnection), method.toUpperCase)
+          }
+        case other =>
+          this.methodField.set(other, method.toUpperCase)
+      }
+    }
 
     // Timeouts
     connection.setConnectTimeout(Constants.DEFAULT_TIMEOUT)
