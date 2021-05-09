@@ -13,7 +13,7 @@ object RequestApp extends App {
   val POST: String = requester.request(
     "http://localhost:8080/echo",
     "POST",
-    Array(Array("Content-Type", "application/json; charset=UTF-8"), Array("User-Agent", "Scala"), Array("Accept", "application/json")),
+    Map("Content-Type" -> "application/json; charset=UTF-8", "User-Agent" -> "Scala", "Accept" -> "application/json"),
     "{\"message\": \"POST message\"}"
   )
   println(POST)
@@ -22,7 +22,7 @@ object RequestApp extends App {
   val DELETE: String = requester.request(
     "http://localhost:8080/echo",
     "DELETE",
-    Array(Array("Accept", "*/*"), Array("User-Agent", "*"))
+    Map("Accept" -> "*/*", "User-Agent" -> "*")
   )
   println(DELETE)
 
@@ -30,7 +30,7 @@ object RequestApp extends App {
   val PUT: String = requester.request(
     "http://localhost:8080/echo",
     "PUT",
-    Array(Array("Accept", "*/*"), Array("User-Agent", "*")),
+    Map("Accept" -> "*/*", "User-Agent" -> "*"),
     "{\"message\": \"PUT message\"}"
   )
   println(PUT)
