@@ -14,29 +14,26 @@ package util
  */
 object Constants {
   /**
-   * Supported methods
+   * Main HTTP/HTTPS methods
    */
-  /** Read-only; Represents full resource and is meant for only getting data */
   val GET: String = "GET"
-  /** Read-only; Asks for a response without the body or data */
-  val HEAD: String = "HEAD"
-  /** Writable; Used for submitting entities, bodies, or data, usually results in additions */
   val POST: String = "POST"
-  /** Writable; Replaces target with the requests's data or payload */
-  val PUT: String = "PUT"
-  /** Writable; Removes a resource or entity; Many APIs will require an authorization header along with this kind of request */
   val DELETE: String = "DELETE"
-  /** Writable; Applies partial modifications to a resource or entity */
+  val PUT: String = "PUT"
+  val HEAD: String = "HEAD"
+  val OPTIONS: String = "OPTIONS"
   val PATCH: String = "PATCH"
 
+  /**
+   * Environment HTTP/HTTPS methods
+   */
+  val CONNECT: String = "CONNECT"
+  val TRACE: String = "TRACE"
 
   /**
-   * Unsupported methods
+   * Officially supported methods
    */
-  /** Read-only; Returns 'Allow' headers, CORS and maybe not practical */
-  val OPTIONS: String = "OPTIONS"
-  /** Connection; Tries to establish an HTTP tunnel, mainly for SSL connections */
-  val CONNECT: String = "CONNECT"
+  val HTTPMethods: Set[String] = Set(GET, POST, DELETE, PUT, HEAD, OPTIONS, TRACE)
 
   /**
    * Timeouts
