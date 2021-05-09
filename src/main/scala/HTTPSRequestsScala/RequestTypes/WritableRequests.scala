@@ -20,7 +20,16 @@ import scala.io.Source.fromInputStream
 // Local utils
 import util.{Constants, OutputReader, HandleHeaders}
 
+// Other
+import java.lang.reflect.Field
+
 class WritableRequests() {
+  private lazy val methodField: Field = {
+    val method = classOf[HttpURLConnection].getDeclaredField("method")
+    method.setAccessible(true)
+    method
+  }
+
   /**
    *
    * @param url - String; Provide an url for the request
@@ -32,7 +41,24 @@ class WritableRequests() {
   def request(url: String, method: String, data: String = null, headers: Iterable[(String, String)] = Nil): String = {
     // Meant for POST, PUT, PATCH, and DELETE requests
     val connection: HttpURLConnection = new URL(url).openConnection.asInstanceOf[HttpURLConnection]
-    connection.setRequestMethod(method)
+
+    // Set the request method
+    if (Constants.HTTPMethods.contains(method.toUpperCase)) {
+      connection.setRequestMethod(method.toUpperCase)
+    } else if (method.toUpperCase.equals(Constants.PATCH)) {
+      connection.setRequestProperty("X-HTTP-Method-Override", "PATCH")
+      connection.setRequestMethod(Constants.PUT)
+    } else {
+      connection match {
+        case httpURLConnection: HttpURLConnection =>
+          httpURLConnection.getClass.getDeclaredFields.find(_.getName == "delegate") foreach { i =>
+            i.setAccessible(true)
+            this.methodField.set(i.get(httpURLConnection), method.toUpperCase)
+          }
+        case other =>
+          this.methodField.set(other, method.toUpperCase)
+      }
+    }
 
     if (headers.nonEmpty) {
       HandleHeaders.setHeaders(connection, headers)
@@ -54,7 +80,7 @@ class WritableRequests() {
    */
   def writeToRequest(connection: HttpURLConnection, method: String, data: String): String = {
     val theMethod: String = method.toUpperCase
-    if (theMethod.equals(Constants.POST) || theMethod.equals(Constants.PUT)) connection.setDoOutput(true)
+    if (theMethod.equals(Constants.POST) || theMethod.equals(Constants.PUT) || theMethod.equals(Constants.PATCH)) connection.setDoOutput(true)
 
     // Processing the data
     val byte: Array[Byte] = data.getBytes(StandardCharsets.UTF_8)
