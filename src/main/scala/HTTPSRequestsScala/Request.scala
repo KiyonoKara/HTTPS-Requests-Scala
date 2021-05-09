@@ -16,7 +16,7 @@ import scala.io.Source.fromInputStream
 import RequestTypes.WritableRequests
 
 // Local utilities
-import util.{Constants, Convert, MutableHeadings, OutputReader}
+import util.{Constants, OutputReader, HandleHeaders}
 
 /** Main class for making HTTP/HTTPS requests
  *
@@ -24,10 +24,8 @@ import util.{Constants, Convert, MutableHeadings, OutputReader}
  * @param method - String; Request method, refer to the Constants file for supported methods
  * @param headers - 2D Array; Provide headers in the form of a 2D array where the first element contains the key, second element contains the value
  */
-class Request(var url: String = null, var method: String = "GET", headers: Array[Array[String]] = Array[Array[String]]()) {
+class Request(var url: String = null, var method: String = "GET", headers: Iterable[(String, String)] = Nil) {
   // Constants and handles
-  private val convert: Convert = new Convert()
-  private val handleHeaders: MutableHeadings = new MutableHeadings()
   private val writableRequests: WritableRequests = new WritableRequests()
 
   /** Class method that ultimately does the requesting
@@ -38,7 +36,7 @@ class Request(var url: String = null, var method: String = "GET", headers: Array
    * @param data - String; Preferably JSON data that is in the form of a string
    * @return
    */
-  def request(url: String = this.url, method: String = this.method, headers: Array[Array[String]] = this.headers, data: String = null): String = {
+  def request(url: String = this.url, method: String = this.method, headers: Iterable[(String, String)] = this.headers, data: String = null): String = {
     // Create the connection from the provided URL
     val connection = new URL(url).openConnection.asInstanceOf[HttpURLConnection]
 
@@ -49,10 +47,9 @@ class Request(var url: String = null, var method: String = "GET", headers: Array
     connection.setConnectTimeout(Constants.DEFAULT_TIMEOUT)
     connection.setReadTimeout(Constants.DEFAULT_TIMEOUT)
 
-    // Adds headers
-    val hashMapHeaders = this.convert.From2DtoHashMapMAX2(headers.asInstanceOf[Array[Array[Any]]])
+    // Sets headers
     if (headers.nonEmpty) {
-      this.handleHeaders.addHeaders(connection, hashMapHeaders.asInstanceOf[collection.mutable.HashMap[String, String]])
+      HandleHeaders.setHeaders(connection, headers)
     }
 
     if (method.toUpperCase.equals(Constants.GET)) {
