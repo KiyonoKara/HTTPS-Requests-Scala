@@ -34,4 +34,11 @@ object RequestApp extends App {
     "{\"message\": \"PUT message\"}"
   )
   println(PUT)
+
+  // PATCH, writable
+  val PATCH: String = requester.request("http://localhost:8080/echo",
+  "PATCH",
+    Map("Accept" -> "*/*", "User-Agent" -> "*"),
+    "{\"message\": \"PATCH message\"}")
+  println(PATCH)
 }
