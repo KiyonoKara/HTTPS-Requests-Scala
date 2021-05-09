@@ -18,7 +18,7 @@ import java.nio.charset.StandardCharsets
 import scala.io.Source.fromInputStream
 
 // Local utils
-import util.{Constants, Convert, MutableHeadings, OutputReader}
+import util.{Constants, OutputReader, HandleHeaders}
 
 class WritableRequests() {
   /**
@@ -29,15 +29,13 @@ class WritableRequests() {
    * @param headers - 2D Array; A 2D array which is `Array[Array[String]]`
    * @return output - String; Most writable requests have output, thus, it will always guarantee a string
    */
-  def request(url: String, method: String, data: String = null, headers: Array[Array[String]] = Array[Array[String]]()): String = {
+  def request(url: String, method: String, data: String = null, headers: Iterable[(String, String)] = Nil): String = {
     // Meant for POST, PUT, PATCH, and DELETE requests
     val connection: HttpURLConnection = new URL(url).openConnection.asInstanceOf[HttpURLConnection]
     connection.setRequestMethod(method)
-    val convert: Convert = new Convert()
-    val handleHeaders: MutableHeadings = new MutableHeadings()
-    val hashMapHeaders = convert.From2DtoHashMapMAX2(headers.asInstanceOf[Array[Array[Any]]])
+
     if (headers.nonEmpty) {
-      handleHeaders.addHeaders(connection, hashMapHeaders.asInstanceOf[collection.mutable.HashMap[String, String]])
+      HandleHeaders.setHeaders(connection, headers)
     }
     try {
       this.writeToRequest(connection, method, data)
