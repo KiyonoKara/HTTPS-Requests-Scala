@@ -22,7 +22,7 @@ import util.{Constants, OutputReader, HandleHeaders}
  *
  * @param url - String; Provide an URL with its path (if you are requesting with the path)
  * @param method - String; Request method, refer to the Constants file for supported methods
- * @param headers - 2D Array; Provide headers in the form of a 2D array where the first element contains the key, second element contains the value
+ * @param headers - Iterable[(String, String)]; Headers in the form of a Map collection is primarily valid
  */
 class Request(var url: String = null, var method: String = "GET", headers: Iterable[(String, String)] = Nil) {
   // Constants and handles
@@ -32,7 +32,7 @@ class Request(var url: String = null, var method: String = "GET", headers: Itera
    *
    * @param url - String; Provide an URL
    * @param method - String; Request method, defaults to the class' default method
-   * @param headers - 2D Array; Headers for requesting
+   * @param headers - Iterable[(String, String)]; Headers for requesting
    * @param data - String; Preferably JSON data that is in the form of a string
    * @return
    */
