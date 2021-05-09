@@ -18,28 +18,22 @@ import java.nio.charset.StandardCharsets
 import scala.io.Source.fromInputStream
 
 // Utilities
-import util.{Constants, Convert, MutableHeadings}
+import util.{Constants, HandleHeaders}
 
 class PostRequest(var url: String = null, var data: String = "{}") {
   private val requestMethod: String = Constants.POST
-  private val convert: Convert = new Convert()
-  private val handleHeaders: MutableHeadings = new MutableHeadings()
 
-  def POST(url: String = this.url, data: String = this.data, headers: Array[Array[String]] = Array[Array[String]]()): Any = {
+  def POST(url: String = this.url, data: String = this.data, headers: Iterable[(String, String)] = Nil): Any = {
     // Open and establish the URL connection
     val connection: HttpURLConnection = new URL(url).openConnection.asInstanceOf[HttpURLConnection]
-
-    // Initialize handlers
-    val handleHeaders: MutableHeadings = this.handleHeaders
 
     // Set it to POST
     val requestMethod: String = this.requestMethod
     connection.setRequestMethod(requestMethod)
 
-    // Adds headers
-    val hashMapHeaders = convert.From2DtoHashMapMAX2(headers.asInstanceOf[Array[Array[Any]]])
+    // Sets headers
     if (headers.nonEmpty) {
-      handleHeaders.addHeaders(connection, hashMapHeaders.asInstanceOf[collection.mutable.HashMap[String, String]])
+      HandleHeaders.setHeaders(connection, headers)
     }
 
     // Output to true
