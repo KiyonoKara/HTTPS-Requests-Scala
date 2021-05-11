@@ -3,7 +3,7 @@
 A compact and modest implementation for making HTTP/HTTP requests in Scala.
 
 ## Overview
-An object-oriented approach to helping create HTTP/HTTPS requests, and a partial implementation & wrapper of Java's networking package with great help from Scala's Source library. This library simplifies the making of HTTP/HTTPS requests and wraps a number of Java's `HttpURLConnection` class in Scala. 
+An object-oriented approach to helping create HTTP/HTTPS requests, and a partial implementation & wrapper of Java's networking package with great help from Scala's Source library. This library simplifies the making of HTTP/HTTPS requests and wraps a number of Java's `HttpURLConnection` class in Scala. There are many features and checks being added to make the most optimal HTTP/HTTPS requests in Scala.
 
 ## Usage
 The main purpose of this repository is to provide an implementation for making HTTP/HTTPS requests. Some use cases for this implementation is getting data from an URL or sending data to an API. 
