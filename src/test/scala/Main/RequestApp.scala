@@ -41,4 +41,8 @@ object RequestApp extends App {
     Map("Accept" -> "*/*", "User-Agent" -> "*"),
     "{\"message\": \"PATCH message\"}")
   println(PATCH)
+
+  // HEAD, read-only
+  val HEAD: String = requester.request("http://httpbin.org/anything/head", "HEAD")
+  println(HEAD)
 }
