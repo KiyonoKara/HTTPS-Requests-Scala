@@ -2,7 +2,6 @@
 .bsp
 
 # GitHub
-.github/
 
 # Scala IDE
 .scala_dependencies
