@@ -1,6 +1,6 @@
 # HTTPS Request Scala
 
-<div align="center">
+<div>
   <p>
     <a href="https://github.com/KaNguy/HTTPS-Request-Scala/pulls"><img src="https://shields.io/github/issues-pr/KaNguy/HTTPS-Request-Scala?color=da301b" alt="PRs" /></a>
     <a><img src="https://shields.io/github/languages/code-size/KaNguy/HTTPS-Request-Scala?color=da301b" /></a>
