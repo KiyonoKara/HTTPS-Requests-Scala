@@ -6,7 +6,8 @@ package HTTPSRequestsScala
  */
 
 // Networking and web
-import java.net.{HttpURLConnection, URL}
+import java.net.{HttpURLConnection, URL, ConnectException}
+import javax.net.ssl.SSLException
 
 // Scala IO Source
 import scala.io.Source.fromInputStream
@@ -46,9 +47,16 @@ class Request(var url: String = null, var method: String = "GET", headers: Itera
   def request(url: String = this.url, method: String = this.method, headers: Iterable[(String, String)] = this.headers, data: String = null, parameters: Iterable[(String, String)] = Nil): String = {
     // Parse the URL along with the parameters
     val requestURL: String = Utility.createURL(url, parameters)
+    val parsedURL: URL = new URL(requestURL)
 
     // Create the connection from the provided URL
-    val connection = new URL(requestURL).openConnection.asInstanceOf[HttpURLConnection]
+    var connection: HttpURLConnection = null
+    try {
+      connection = parsedURL.openConnection.asInstanceOf[HttpURLConnection]
+    } catch {
+      case connectException: ConnectException => connectException.printStackTrace();
+      case sslException: SSLException => sslException.printStackTrace();
+    }
 
     // Set the request method
     if (Constants.HTTPMethods.contains(method.toUpperCase)) {
