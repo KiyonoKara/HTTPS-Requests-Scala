@@ -6,14 +6,7 @@ package util
  */
 
 // URL
-import java.net.{URLEncoder, URL, IDN, URI}
-import java.nio.charset.StandardCharsets
-
-// SSL & Security
-import javax.net.ssl.{SSLSession, HostnameVerifier, SSLContext, TrustManager, X509TrustManager}
-import java.security.cert.X509Certificate
-import java.security.SecureRandom
-import javax.net.ssl.HttpsURLConnection
+import java.net.{URLEncoder, URL, URI}
 
 object Utility {
   def encodeURLParameters(str: Iterable[(String, String)]): String = {
