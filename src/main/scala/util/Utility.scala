@@ -18,6 +18,7 @@ object Utility {
 
   def createURL(url: String, urlParameters: Iterable[(String, String)] = Nil): String = {
     val newURL: URL = new URL(new URI(url).toASCIIString)
+    if (urlParameters == Nil) return s"""$newURL"""
     val separator: String = if (newURL.getQuery != null) "&" else "?"
     val encodedURLParameters: String = Utility.encodeURLParameters(urlParameters)
     s"""$newURL$separator$encodedURLParameters"""
