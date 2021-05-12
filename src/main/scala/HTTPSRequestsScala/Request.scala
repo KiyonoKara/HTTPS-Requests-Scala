@@ -15,7 +15,7 @@ import scala.io.Source.fromInputStream
 import RequestTypes.WritableRequests
 
 // Local utilities
-import util.{Constants, OutputReader, HandleHeaders}
+import util.{Constants, OutputReader, HandleHeaders, Utility}
 
 // Other
 import java.lang.reflect.Field
@@ -43,9 +43,12 @@ class Request(var url: String = null, var method: String = "GET", headers: Itera
    * @param data - String; Preferably JSON data that is in the form of a string
    * @return
    */
-  def request(url: String = this.url, method: String = this.method, headers: Iterable[(String, String)] = this.headers, data: String = null): String = {
+  def request(url: String = this.url, method: String = this.method, headers: Iterable[(String, String)] = this.headers, data: String = null, parameters: Iterable[(String, String)] = Nil): String = {
+    // Parse the URL along with the parameters
+    val requestURL: String = Utility.createURL(url, parameters)
+
     // Create the connection from the provided URL
-    val connection = new URL(url).openConnection.asInstanceOf[HttpURLConnection]
+    val connection = new URL(requestURL).openConnection.asInstanceOf[HttpURLConnection]
 
     // Set the request method
     if (Constants.HTTPMethods.contains(method.toUpperCase)) {
@@ -79,7 +82,7 @@ class Request(var url: String = null, var method: String = "GET", headers: Itera
     }
 
     if (method.toUpperCase.equals(Constants.POST) || method.toUpperCase.equals(Constants.DELETE) || method.toUpperCase.equals(Constants.PUT) || method.toUpperCase.equals(Constants.PATCH)) {
-      return writableRequests.request(url, method, data, headers)
+      return writableRequests.request(requestURL, method, data, headers)
     }
 
     // Input stream for data with a GET request if all of the requests fail
