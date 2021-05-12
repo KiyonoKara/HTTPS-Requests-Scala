@@ -6,7 +6,7 @@ package HTTPSRequestsScala
  */
 
 // Networking and web
-import java.net.{HttpURLConnection, ProtocolException, URL}
+import java.net.{HttpURLConnection, URL}
 
 // Scala IO Source
 import scala.io.Source.fromInputStream
