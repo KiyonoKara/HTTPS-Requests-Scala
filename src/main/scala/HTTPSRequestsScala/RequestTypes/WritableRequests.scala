@@ -67,7 +67,6 @@ class WritableRequests() {
       this.writeToRequest(connection, method, data)
     } catch {
       case _: Exception => OutputReader.read(connection, connection.getInputStream)
-        // TODO: Add SSL handling for requests that throw the unsupported or unrecognized SSL message error
     }
   }
 
