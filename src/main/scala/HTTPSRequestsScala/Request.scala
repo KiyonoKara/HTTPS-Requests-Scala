@@ -52,10 +52,16 @@ class Request(var url: String = null, var method: String = "GET", headers: Itera
     // Create the connection from the provided URL
     var connection: HttpURLConnection = null
     try {
-      connection = parsedURL.openConnection.asInstanceOf[HttpURLConnection]
+      connection = parsedURL.openConnection.asInstanceOf[HttpURLConnection] match {
+        case _: HttpURLConnection => parsedURL.openConnection.asInstanceOf[HttpURLConnection];
+      }
     } catch {
-      case connectException: ConnectException => connectException.printStackTrace();
-      case sslException: SSLException => sslException.printStackTrace();
+      case connectException: ConnectException =>
+        connectException.printStackTrace()
+        throw ConnectException
+      case sslException: SSLException =>
+        sslException.printStackTrace()
+        throw SSLException
     }
 
     // Set the request method
