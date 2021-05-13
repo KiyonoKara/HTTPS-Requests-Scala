@@ -58,10 +58,10 @@ class Request(var url: String = null, var method: String = "GET", headers: Itera
     } catch {
       case connectException: ConnectException =>
         connectException.printStackTrace()
-        throw ConnectException
+        throw connectException
       case sslException: SSLException =>
         sslException.printStackTrace()
-        throw SSLException
+        throw sslException
     }
 
     // Set the request method
