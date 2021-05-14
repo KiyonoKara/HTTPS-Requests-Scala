@@ -31,12 +31,14 @@ class GetRequest(var url: String = null) {
     str
   }
 
-  def GET(url: String = this.url, headers: Iterable[(String, String)] = Nil, compressed: Boolean = true, connectTimeout: Int = 5000, readTimeout: Int = 5000): String = {
+  def GET(url: String = this.url, headers: Iterable[(String, String)] = Nil, parameters: Iterable[(String, String)] = Nil, compressed: Boolean = true, connectTimeout: Int = 5000, readTimeout: Int = 5000): String = {
     // Constants
     val requestMethod: String = this.requestMethod
 
+    val requestURL = Utility.createURL(url, parameters)
+
     // Establishes connection
-    val connection = new URL(url).openConnection.asInstanceOf[HttpURLConnection]
+    val connection = new URL(requestURL).openConnection.asInstanceOf[HttpURLConnection]
     // Sets a timeout
     connection.setConnectTimeout(connectTimeout)
     // Sets a reading timeout
