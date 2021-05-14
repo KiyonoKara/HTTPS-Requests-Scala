@@ -42,7 +42,8 @@ class Request(var url: String = null, var method: String = "GET", headers: Itera
    * @param method - String; Request method, defaults to the class' default method
    * @param headers - Iterable[(String, String)]; Headers for requesting
    * @param data - String; Preferably JSON data that is in the form of a string
-   * @return
+   * @param parameters - Iterable[(String, String)]; URL parameters that can be used for querying
+   * @return {string}
    */
   def request(url: String = this.url, method: String = this.method, headers: Iterable[(String, String)] = this.headers, data: String = null, parameters: Iterable[(String, String)] = Nil): String = {
     // Parse the URL along with the parameters
