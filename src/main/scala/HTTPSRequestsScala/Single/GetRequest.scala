@@ -24,8 +24,8 @@ class GetRequest(var url: String = null) {
   // Private variables
   private val requestMethod: String = Constants.GET
 
-  def defaultGET(url: String = this.url): String = {
-    val source = fromURL(url)
+  def defaultGET(url: String = this.url, parameters: Iterable[(String, String)] = Nil): String = {
+    val source = fromURL(Utility.createURL(url, parameters))
     val str = source.mkString
     source.close()
     str
