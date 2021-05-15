@@ -8,6 +8,8 @@ package util
 // URL
 import java.net.{URLEncoder, URL, URI}
 
+// JSON
+
 object Utility {
   def encodeURLParameters(str: Iterable[(String, String)]): String = {
     str.map({
@@ -36,6 +38,22 @@ object Utility {
       }
     })
     fin
+  }
+
+  def MapToJSON(map: Map[String, String]): String = {
+    var json: String = ""
+
+    var iterator: Int = 0
+    map.foreach(i => {
+      if (iterator == map.size - 1) {
+        json += f"${'"'}${i._1}${'"'}" + ":" + f"${'"'}${i._2}${'"'}"
+      } else {
+        json += f"${'"'}${i._1}${'"'}" + ":" + f"${'"'}${i._2}${'"'}${','}"
+      }
+      iterator += 1
+    })
+    json = "{" + json + "}"
+    json
   }
 }
 
