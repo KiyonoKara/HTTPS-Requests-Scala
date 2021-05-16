@@ -1,7 +1,7 @@
 package Single
 
 import HTTPSRequestsScala.Single.PostRequest
-import util.Utility
+import HTTPSRequestsScala.util.Utility
 
 object TestPOST {
   def main(args: Array[String]): Unit = {
