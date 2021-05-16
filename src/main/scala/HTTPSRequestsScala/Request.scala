@@ -113,7 +113,7 @@ class Request(var url: String = null, var method: String = Constants.GET, header
    * @param data - Map[String, String]; JSON data in the form of a Map
    * @return {String}
    */
-  def mapToJSON(data: Map[String, String]): String = {
-    Utility.MapToJSON(data)
+  def singleMapToJSON(data: Map[String, String]): String = {
+    Utility.singleMapToJSON(data)
   }
 }
