@@ -1,14 +1,14 @@
-package util
+package HTTPSRequestsScala.util
 
 /**
  * Created by KaNguy - 04/24/2021
- * File util.Constants.scala
+ * File HTTPSRequestsScala.util.Constants.scala
  */
 
 /**
  * HTTP-related constants
  * {{{
- *   import util.Constants
+ *   import HTTPSRequestsScala.util.Constants
  *   val GET: String = Constants.GET
  * }}}
  */
