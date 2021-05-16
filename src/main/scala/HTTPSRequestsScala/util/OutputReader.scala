@@ -1,8 +1,8 @@
-package util
+package HTTPSRequestsScala.util
 
 /**
  * Created by KaNguy - 04/26/2021
- * File util.OutputReader.scala
+ * File HTTPSRequestsScala.util.OutputReader.scala
  */
 
 // IO imports
