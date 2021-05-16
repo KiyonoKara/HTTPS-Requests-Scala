@@ -27,7 +27,7 @@ import java.lang.reflect.Field
  * @param method - String; Request method, refer to the Constants file for supported methods
  * @param headers - Iterable[(String, String)]; Headers in the form of a Map collection is primarily valid
  */
-class Request(var url: String = null, var method: String = "GET", headers: Iterable[(String, String)] = Nil) {
+class Request(var url: String = null, var method: String = Constants.GET, headers: Iterable[(String, String)] = Nil) {
   private val writableRequests: WritableRequests = new WritableRequests()
   private lazy val methodField: Field = {
     val method = classOf[HttpURLConnection].getDeclaredField("method")
