@@ -14,7 +14,7 @@ import java.net.{HttpURLConnection, URL}
 import scala.io.Source.fromInputStream
 
 // Local utilities
-import util.{Constants, HandleHeaders}
+import HTTPSRequestsScala.util.{Constants, HandleHeaders}
 
 class DeleteRequest(var url: String = null) {
   private val requestMethod: String = Constants.DELETE

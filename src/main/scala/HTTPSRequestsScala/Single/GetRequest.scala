@@ -18,7 +18,7 @@ import scala.io.Source.{fromInputStream, fromURL}
 import java.util.zip.GZIPInputStream
 
 // Local utilities
-import util.{Constants, HandleHeaders, Utility}
+import HTTPSRequestsScala.util.{Constants, HandleHeaders, Utility}
 
 class GetRequest(var url: String = null) {
   // Private variables
