@@ -40,7 +40,7 @@ object Utility {
     fin
   }
 
-  def MapToJSON(map: Map[String, String]): String = {
+  def singleMapToJSON(map: Map[String, String]): String = {
     var json: String = ""
 
     var iterator: Int = 0
