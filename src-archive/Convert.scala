@@ -1,9 +1,9 @@
 /**
  * Created by KaNguy - 04/16/2021
- * File util.Convert.scala
+ * File HTTPSRequestsScala.util.Convert.scala
  */
 
-package util
+package HTTPSRequestsScala.util
 
 // Util
 import java.util

@@ -1,8 +1,8 @@
-package util
+package HTTPSRequestsScala.util
 
 /**
  * Created by KaNguy - 05/07/2021
- * File util.HandleHeaders.scala
+ * File HTTPSRequestsScala.util.HandleHeaders.scala
  */
 
 // Networking & Web

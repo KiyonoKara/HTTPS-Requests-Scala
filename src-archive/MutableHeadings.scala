@@ -1,10 +1,10 @@
 /**
  * Created by KaNguy - 04/14/2021
- * File util.HandleHeaders.scala
+ * File HTTPSRequestsScala.util.HandleHeaders.scala
  */
 
 // Util package for this library
-package util
+package HTTPSRequestsScala.util
 
 // Networking and web
 import java.net.HttpURLConnection
@@ -15,7 +15,7 @@ import scala.collection.mutable
 /**
  * Class for handling headers
  * {{{
- *   import util.HandleHeaders
+ *   import HTTPSRequestsScala.util.HandleHeaders
  *   val handleHeaders: HandleHeaders = new HandleHeaders()
  * }}}
  * @param headers - Headers in the form of a mutable HashMap
