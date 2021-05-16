@@ -18,7 +18,7 @@ import java.nio.charset.StandardCharsets
 import scala.io.Source.fromInputStream
 
 // Local utils
-import util.{Constants, OutputReader, HandleHeaders}
+import HTTPSRequestsScala.util.{Constants, OutputReader, HandleHeaders}
 
 // Other
 import java.lang.reflect.Field
