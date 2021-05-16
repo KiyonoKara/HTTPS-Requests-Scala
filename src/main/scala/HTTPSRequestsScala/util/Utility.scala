@@ -8,7 +8,8 @@ package HTTPSRequestsScala.util
 // URL
 import java.net.{URLEncoder, URL, URI}
 
-// JSON
+// Collections
+import scala.collection.mutable.ListBuffer
 
 object Utility {
   def encodeURLParameters(str: Iterable[(String, String)]): String = {
@@ -54,6 +55,44 @@ object Utility {
     })
     json = "{" + json + "}"
     json
+  }
+
+  def CollectionsToJSON(collections: Any): String = {
+    var JSON = new ListBuffer[String]()
+    collections match {
+      case map: Map[_, _] =>
+        for ((k, v) <- map) {
+          val key = k.asInstanceOf[String].replaceAll("\"" , "\\\\\"")
+          v match {
+            case map: Map[_, _] => JSON += s""""$key": ${CollectionsToJSON(map)}""";
+            case list: List[_] => JSON += s""""$key": ${CollectionsToJSON(list)}""";
+            case int: Int => JSON += s""""$key": $int""";
+            case boolean: Boolean => JSON += s""""$key": $boolean""";
+            case string: String => JSON += s""""$key": "${string.replaceAll("\"" , "\\\\\"")}""""
+            case _ => ();
+          }
+        };
+
+      case theList: List[_] =>
+        var list = new ListBuffer[String]()
+        for (listing <- theList) {
+          listing match {
+            case map: Map[_, _] => list += CollectionsToJSON(map);
+            case caseList: List[_] => list += CollectionsToJSON(caseList);
+            case int: Int => list += int.toString;
+            case boolean: Boolean => list += boolean.toString;
+            case string: String => list += s"""${string.replaceAll("\"" , "\\\\\"")}""";
+            case _ => ();
+          }
+        }
+
+        return "[" + list.mkString(",") + "]"
+
+      case _ => ();
+    }
+
+    val JSONString: String = "{" + JSON.mkString(",") + "}"
+    JSONString
   }
 }
 
