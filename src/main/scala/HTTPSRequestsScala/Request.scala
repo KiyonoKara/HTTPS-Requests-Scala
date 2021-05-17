@@ -116,4 +116,8 @@ class Request(var url: String = null, var method: String = Constants.GET, header
   def singleMapToJSON(data: Map[String, String]): String = {
     Utility.singleMapToJSON(data)
   }
+
+  def CollectionToJSON(collections: Any): String = {
+    Utility.CollectionsToJSON(collections)
+  }
 }
