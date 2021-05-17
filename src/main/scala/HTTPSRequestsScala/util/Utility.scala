@@ -81,7 +81,7 @@ object Utility {
             case caseList: List[_] => list += CollectionsToJSON(caseList);
             case int: Int => list += int.toString;
             case boolean: Boolean => list += boolean.toString;
-            case string: String => list += s"""${string.replaceAll("\"" , "\\\\\"")}""";
+            case string: String => list += s""""${string.replaceAll("\"" , "\\\\\"")}"""";
             case _ => ();
           }
         }
