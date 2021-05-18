@@ -108,16 +108,12 @@ class Request(var url: String = null, var method: String = Constants.GET, header
     content
   }
 
-  /** Can turn basic Maps into a String, only works for Map[String, String]
+  /** Can turn collections into JSON data as a string
    *
-   * @param data - Map[String, String]; JSON data in the form of a Map
+   * @param collections - Any; Accepts collections and primitive types
    * @return {String}
    */
-  def singleMapToJSON(data: Map[String, String]): String = {
-    Utility.singleMapToJSON(data)
-  }
-
-  def CollectionToJSON(collections: Any): String = {
+  def collectionToJSON(collections: Any): String = {
     Utility.CollectionsToJSON(collections)
   }
 }
