@@ -23,7 +23,7 @@ object RequestApp extends App {
     "http://localhost:8080/payload",
     "POST",
     Map("Content-Type" -> "application/json; charset=UTF-8", "User-Agent" -> "Scala", "Accept" -> "application/json"),
-    requester.CollectionToJSON(
+    requester.collectionToJSON(
       Map("payload" ->
         Map("message" -> "This is a payload",
           "list" -> List(1, 2, 3, 4)
