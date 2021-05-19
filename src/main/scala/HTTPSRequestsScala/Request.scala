@@ -116,4 +116,13 @@ class Request(var url: String = null, var method: String = Constants.GET, header
   def collectionToJSON(collections: Any): String = {
     Utility.CollectionsToJSON(collections).toString
   }
+
+  /** Method to turn maps that have only two strings per index into JSON data as a string
+   *
+   * @param map - Map[String, String]; String map with only two strings, this is for regular JSON objects that have no nesting or lists
+   * @return {String}
+   */
+  def mapToString(map: Map[String, String] = Map.empty): String = {
+    Utility.singleMapToJSON(map).toString
+  }
 }
