@@ -114,6 +114,6 @@ class Request(var url: String = null, var method: String = Constants.GET, header
    * @return {String}
    */
   def collectionToJSON(collections: Any): String = {
-    Utility.CollectionsToJSON(collections)
+    Utility.CollectionsToJSON(collections).toString
   }
 }
