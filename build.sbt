@@ -1,4 +1,4 @@
-name := "HTTPS-Request-Scala"
+name := "HTTPS-Requests-Scala"
 
 version := "0.1"
 
