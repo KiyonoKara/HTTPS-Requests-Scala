@@ -1,4 +1,4 @@
-# HTTPS Request Scala
+# HTTPS Requests Scala
 
 <div>
   <p>
