@@ -68,9 +68,6 @@ class Request(var url: String = null, var method: String = Constants.GET, header
     // Set the request method
     if (Constants.HTTPMethods.contains(method.toUpperCase)) {
       connection.setRequestMethod(method.toUpperCase)
-    } else if (method.toUpperCase.equals(Constants.PATCH)) {
-      connection.setRequestProperty("X-HTTP-Method-Override", "PATCH")
-      connection.setRequestMethod(Constants.PUT)
     } else {
       connection match {
         case httpURLConnection: HttpURLConnection =>
