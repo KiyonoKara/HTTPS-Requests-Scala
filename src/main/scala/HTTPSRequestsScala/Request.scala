@@ -69,6 +69,19 @@ class Request(var url: String = null, var method: String = Constants.GET, header
     if (Constants.HTTPMethods.contains(method.toUpperCase)) {
       connection.setRequestMethod(method.toUpperCase)
     } else {
+      /** For PATCH requests, the method will default to POST.
+       * PATCH requests can still be done with X-HTTP-Method-Override header that changes the request method.
+       *
+       * Example for adding the PATCH override:
+       * {{{
+       *   val PATCH: String = new Request().request("http://localhost:8080/echo",
+       *                                         "PATCH", Map("Accept" -> "*",
+       *                                         "User-Agent" -> "*",
+       *                                         "X-HTTP-Method-Override" -> "PATCH"),
+       *                                         data = "{\"message\": \"PATCH message\"}")
+       * }}}
+       *
+       */
       connection match {
         case httpURLConnection: HttpURLConnection =>
           httpURLConnection.getClass.getDeclaredFields.find(_.getName == "delegate") foreach { i =>
