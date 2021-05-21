@@ -56,7 +56,7 @@ object RequestApp extends App {
   // PATCH, writable
   val PATCH: String = requester.request("http://localhost:8080/echo",
   "PATCH",
-    Map("Accept" -> "*/*", "User-Agent" -> "*"),
+    Map("Accept" -> "*/*", "User-Agent" -> "*", "X-HTTP-Method-Override" -> "PATCH"),
     "{\"message\": \"PATCH message\"}")
   println(PATCH)
 
