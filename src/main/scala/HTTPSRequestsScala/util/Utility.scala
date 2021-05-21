@@ -94,10 +94,5 @@ object Utility {
     val JSONString: String = "{" + JSON.mkString(",") + "}"
     JSONString
   }
-
-  def JSONToCollections(json: String): Iterable[(Any, Any)] = {
-    // TODO: Finish this later
-    Map(0 -> 0)
-  }
 }
 
