@@ -132,7 +132,7 @@ class Request(var url: String = null, var method: String = Constants.GET, header
    * @param map - Map[String, String]; String map with only two strings, this is for regular JSON objects that have no nesting or lists
    * @return {String}
    */
-  def mapToString(map: Map[String, String] = Map.empty): String = {
+  def mapToJSON(map: Map[String, String] = Map.empty): String = {
     Utility.singleMapToJSON(map).toString
   }
 }
