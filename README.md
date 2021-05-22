@@ -2,10 +2,10 @@
 
 <div>
   <p>
-    <a href="https://github.com/KaNguy/HTTPS-Request-Scala/pulls"><img src="https://shields.io/github/issues-pr/KaNguy/HTTPS-Request-Scala?color=da301b" alt="PRs" /></a>
-    <a><img src="https://shields.io/github/languages/code-size/KaNguy/HTTPS-Request-Scala?color=da301b" /></a>
-    <a><img src="https://shields.io/tokei/lines/github/KaNguy/HTTPS-Request-Scala" /></a>
-    <a href="LICENSE.md"><img src="https://img.shields.io/github/license/KaNguy/HTTPS-Request-Scala?color=007ace" alt="License" /></a>
+    <a href="https://github.com/KaNguy/HTTPS-Requests-Scala/pulls"><img src="https://shields.io/github/issues-pr/KaNguy/HTTPS-Requests-Scala?color=da301b" alt="PRs" /></a>
+    <a><img src="https://shields.io/github/languages/code-size/KaNguy/HTTPS-Requests-Scala?color=da301b" /></a>
+    <a><img src="https://shields.io/tokei/lines/github/KaNguy/HTTPS-Requests-Scala" /></a>
+    <a href="LICENSE.md"><img src="https://img.shields.io/github/license/KaNguy/HTTPS-Requests-Scala?color=007ace" alt="License" /></a>
   </p>
 </div>
 
