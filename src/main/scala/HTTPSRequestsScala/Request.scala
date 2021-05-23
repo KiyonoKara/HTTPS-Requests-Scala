@@ -123,7 +123,18 @@ class Request(var url: String = null, var method: String = Constants.GET, header
 
   def head(url: String = this.url): String = {
     val client: HttpClient = HttpClient.newHttpClient()
-    ""
+    val headRequest: HttpRequest  = HttpRequest.newBuilder(URI.create(url))
+                      .method(Constants.HEAD, HttpRequest.BodyPublishers.noBody())
+                      .build()
+    val response: HttpResponse[Void] = client.send(headRequest, HttpResponse.BodyHandlers.discarding())
+    val headers: HttpHeaders = response.headers()
+
+    var strHeaders: String = new String()
+    headers.map.forEach((key, values) => {
+      strHeaders += ("%s: %s%n".format(key, values))
+    })
+
+    strHeaders
   }
 
   /** Can turn collections into JSON data as a string
