@@ -131,7 +131,7 @@ class Request(var url: String = null, var method: String = Constants.GET, header
 
     var strHeaders: String = new String()
     headers.map.forEach((key, values) => {
-      strHeaders += ("%s: %s%n".format(key, values))
+      strHeaders += "%s: %s%n".format(key, values)
     })
 
     strHeaders
