@@ -6,8 +6,11 @@ package HTTPSRequestsScala
  */
 
 // Networking and web
-import java.net.{HttpURLConnection, URL, ConnectException}
+import java.net.{HttpURLConnection, URL, URI, ConnectException}
 import javax.net.ssl.SSLException
+
+// Java HTTP
+import java.net.http.{HttpClient, HttpHeaders, HttpRequest, HttpResponse}
 
 // Scala IO Source
 import scala.io.Source.fromInputStream
@@ -116,6 +119,11 @@ class Request(var url: String = null, var method: String = Constants.GET, header
     if (inputStream != null) inputStream.close()
     // Return the content or data, read-only
     content
+  }
+
+  def head(url: String = this.url): String = {
+    val client: HttpClient = HttpClient.newHttpClient()
+    ""
   }
 
   /** Can turn collections into JSON data as a string
