@@ -15,6 +15,8 @@ object HandleHeaders {
         case (key, value) =>
           try {
             connection.setRequestProperty(key, value)
+          } catch {
+            case _: Any => ()
           }
       }
     }
@@ -26,6 +28,8 @@ object HandleHeaders {
       case (key, value) =>
         try {
           connection.addRequestProperty(key, value)
+        } catch {
+          case _: Any => ()
         }
     }
   }
