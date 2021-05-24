@@ -93,6 +93,8 @@ class Request(var url: String = null, var method: String = Constants.GET, header
           }
         case other =>
           this.methodField.set(other, method.toUpperCase)
+        case null =>
+          this.methodField.set(null, method.toUpperCase)
       }
     }
 
