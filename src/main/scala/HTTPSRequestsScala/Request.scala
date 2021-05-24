@@ -145,7 +145,7 @@ class Request(var url: String = null, var method: String = Constants.GET, header
    * @return {String}
    */
   def collectionToJSON(collections: Any): String = {
-    Utility.CollectionsToJSON(collections).toString
+    Utility.CollectionsToJSON(collections)
   }
 
   /** Method to turn maps that have only two strings per index into JSON data as a string
@@ -154,6 +154,6 @@ class Request(var url: String = null, var method: String = Constants.GET, header
    * @return {String}
    */
   def mapToJSON(map: Map[String, String] = Map.empty): String = {
-    Utility.singleMapToJSON(map).toString
+    Utility.singleMapToJSON(map)
   }
 }
