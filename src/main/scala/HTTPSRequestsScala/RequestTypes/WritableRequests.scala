@@ -69,10 +69,10 @@ class WritableRequests() {
 
   /**
    *
-   * @param connection - HttpURLConnection; The connection established will be used so it can be written to.
-   * @param method - String; Method is always required, cannot default to a common request method
-   * @param data - String; Preferably JSON data in the form of a string.
-   * @return output - String; Generally returns the output of the Output Reader
+   * @param connection HttpURLConnection; The connection established will be used so it can be written to.
+   * @param method A method is always required, cannot default to a common request method
+   * @param data Preferably JSON data in the form of a string.
+   * @return output Generally returns the output of the Output Reader
    */
   def writeToRequest(connection: HttpURLConnection, method: String, data: String): String = {
     val theMethod: String = method.toUpperCase
