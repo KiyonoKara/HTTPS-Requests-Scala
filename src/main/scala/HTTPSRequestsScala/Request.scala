@@ -26,9 +26,9 @@ import java.lang.reflect.Field
 
 /** Main class for making HTTP/HTTPS requests
  *
- * @param url - String; Provide an URL with its path (if you are requesting with the path)
- * @param method - String; Request method, refer to the Constants file for supported methods
- * @param headers - Iterable[(String, String)]; Headers in the form of a Map collection is primarily valid
+ * @param url String; Provide an URL with its path (if you are requesting with the path)
+ * @param method String; Request method, refer to the Constants file for supported methods
+ * @param headers Iterable[(String, String)]; Headers in the form of a Map collection is primarily valid
  */
 class Request(var url: String = null, var method: String = Constants.GET, headers: Iterable[(String, String)] = Nil) {
   private val writableRequests: WritableRequests = new WritableRequests()
@@ -41,11 +41,11 @@ class Request(var url: String = null, var method: String = Constants.GET, header
 
   /** Class method that ultimately does the requesting
    *
-   * @param url - String; Provide an URL
-   * @param method - String; Request method, defaults to the class' default method
-   * @param headers - Iterable[(String, String)]; Headers for requesting
-   * @param data - String; Preferably JSON data that is in the form of a string
-   * @param parameters - Iterable[(String, String)]; URL parameters that can be used for querying
+   * @param url String; Provide an URL
+   * @param method String; Request method, defaults to the class' default method
+   * @param headers Iterable[(String, String)]; Headers for requesting
+   * @param data String; Preferably JSON data that is in the form of a string
+   * @param parameters Iterable[(String, String)]; URL parameters that can be used for querying
    * @return {String}
    */
   def request(url: String = this.url, method: String = this.method, headers: Iterable[(String, String)] = this.headers, data: String = null, parameters: Iterable[(String, String)] = Nil): String = {
@@ -141,8 +141,8 @@ class Request(var url: String = null, var method: String = Constants.GET, header
 
   /** Can turn collections into JSON data as a string
    *
-   * @param collections - Any; Accepts collections and primitive types
-   * @return {String}
+   * @param collections Any; Accepts collections and primitive types
+   * @return Valid JSON data as a string with no nested objects
    */
   def collectionToJSON(collections: Any): String = {
     Utility.CollectionsToJSON(collections)
@@ -150,8 +150,8 @@ class Request(var url: String = null, var method: String = Constants.GET, header
 
   /** Method to turn maps that have only two strings per index into JSON data as a string
    *
-   * @param map - Map[String, String]; String map with only two strings, this is for regular JSON objects that have no nesting or lists
-   * @return {String}
+   * @param map Map[String, String]; String map with only two strings, this is for regular JSON objects that have no nesting or lists
+   * @return Valid JSON data as a string
    */
   def mapToJSON(map: Map[String, String] = Map.empty): String = {
     Utility.singleMapToJSON(map)
