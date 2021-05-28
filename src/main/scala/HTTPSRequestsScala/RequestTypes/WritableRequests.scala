@@ -36,7 +36,7 @@ class WritableRequests() {
    * @param method Provide a method, there are no defaults since all are formatted the same but have vastly different outcomes.
    * @param data Usually data is provided as JSON in the form of a string, but any data in the form of a string is accepted.
    * @param headers Iterable[(String, String)]; Headers in the form of a Map collection is primarily valid
-   * @return output Most writable requests have output, thus, it will always guarantee an output as a string
+   * @return Output; Most writable requests have an output, thus, it will always (mostly) guarantee an output as a string
    */
   def request(url: String, method: String, data: String = null, headers: Iterable[(String, String)] = Nil): String = {
     // Meant for POST, PUT, PATCH, and DELETE requests
