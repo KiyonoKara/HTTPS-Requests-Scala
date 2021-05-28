@@ -46,7 +46,7 @@ class Request(var url: String = null, var method: String = Constants.GET, header
    * @param headers Iterable[(String, String)]; Headers for requesting
    * @param data String; Preferably JSON data that is in the form of a string
    * @param parameters Iterable[(String, String)]; URL parameters that can be used for querying
-   * @return {String}
+   * @return Output as a string
    */
   def request(url: String = this.url, method: String = this.method, headers: Iterable[(String, String)] = this.headers, data: String = null, parameters: Iterable[(String, String)] = Nil): String = {
     // Parse the URL along with the parameters
