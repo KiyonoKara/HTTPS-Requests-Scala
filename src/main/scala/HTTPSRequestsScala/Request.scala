@@ -128,6 +128,7 @@ class Request(var url: String = null, var method: String = Constants.GET, header
     val headRequest: HttpRequest  = HttpRequest.newBuilder(URI.create(url))
                       .method(Constants.HEAD, HttpRequest.BodyPublishers.noBody())
                       .build()
+
     val response: HttpResponse[Void] = client.send(headRequest, HttpResponse.BodyHandlers.discarding())
     val headers: HttpHeaders = response.headers()
 
