@@ -39,7 +39,7 @@ class Request(var url: String = null, var method: String = Constants.GET, header
   }
 
 
-  /** Class method that ultimately does the requesting
+  /** The request method for the class that completes the HTTP/HTTPS requests
    *
    * @param url String; Provide an URL
    * @param method String; Request method, defaults to the class' default method
