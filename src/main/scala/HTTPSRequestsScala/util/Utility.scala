@@ -94,5 +94,12 @@ object Utility {
     val JSONString: String = "{" + JSON.mkString(",") + "}"
     JSONString
   }
+
+  def JSONToCollections(json: String): Any = {
+    if (json.charAt(0).equals('{') && json.charAt(json.length - 1).equals('}')) {
+      // TODO: Finish this JSON parser
+      json
+    }
+  }
 }
 
