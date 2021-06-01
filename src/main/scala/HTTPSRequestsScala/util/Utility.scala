@@ -96,13 +96,20 @@ object Utility {
   }
 
   def JSONToCollections(json: String): Any = {
-    if (json.charAt(0).equals('{') && json.charAt(json.length - 1).equals('}')) {
+    val JSON: String = json.replaceAll("\\s+", "");
+    if (JSON.charAt(0).equals('{') && JSON.charAt(JSON.length - 1).equals('}')) {
       // TODO: Finish this JSON parser
-      for (i <- json) {
+      for (i <- JSON) {
+        if (i.equals('"')) {
 
+        }
       }
       json
     }
+  }
+
+  def main(args: Array[String]): Unit = {
+    JSONToCollections("{\"1\": \"test\"}")
   }
 }
 
