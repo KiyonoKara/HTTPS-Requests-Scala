@@ -13,7 +13,7 @@ class JSON {
     case object COMMA extends Token { val value: String = "," }
     case object TRUE extends Token { val value: String = "true" }
     case object FALSE extends Token { val value: String = "false" }
-    case object Null extends Token { val value: String = "null" }
+    case object NULL extends Token { val value: String = "null" }
     case class NumberToken(value: String) extends Token
     case class StringToken(value: String) extends Token {
       override def toString: String = value.tail.init
