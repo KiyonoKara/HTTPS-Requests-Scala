@@ -1,8 +1,5 @@
 package HTTPSRequestsScala.util
 
-// Scala
-import scala.Some
-
 class JSON {
   trait Token {
     def value: String
