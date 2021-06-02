@@ -169,6 +169,6 @@ class JSON {
 
 object JSON {
   def main(args: Array[String]): Unit = {
-    println(new JSON().JSONParser.parse("{ \"OK\": \"Test\"}"))
+    println(new JSON().JSONParser.parse("{\"i\": \"1\", \"ii\": {\"i2\": \"2\"} }"))
   }
 }
