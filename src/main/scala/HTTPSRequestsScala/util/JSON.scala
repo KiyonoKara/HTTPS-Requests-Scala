@@ -1,5 +1,6 @@
 package HTTPSRequestsScala.util
 
+// Scala Annotations
 import scala.annotation.tailrec
 
 class JSON {
@@ -46,7 +47,8 @@ class JSON {
     }
 
     def tokenize(json: String, tokens: List[Token] = List()): List[Token] = {
-      val trimmedJSON = json.trim
+      val trimmedJSON = json.trim.replaceAll("\\s+", "")
+
       def continue(token: Token): List[Token] = {
         tokenize(trimmedJSON.substring(token.value.length), token :: tokens)
       }
