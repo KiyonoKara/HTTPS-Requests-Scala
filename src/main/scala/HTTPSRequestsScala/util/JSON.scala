@@ -60,17 +60,17 @@ object JSON {
 
       trimmedJSON match {
         case "" => tokens.reverse
-        case LeftCurlyBrace(s) => continue(Token.LEFT_CURLY_BRACE)
-        case RightCurlyBrace(s) => continue(Token.RIGHT_CURLY_BRACE)
-        case LeftSquareBracket(s) => continue(Token.LEFT_SQUARE_BRACKET)
-        case RightSquareBracket(s) => continue(Token.RIGHT_SQUARE_BRACKET)
-        case Colon(s) => continue(Token.COLON)
-        case Comma(s) => continue(Token.COMMA)
-        case IsTrue(s) => continue(Token.TRUE)
-        case IsFalse(s) => continue(Token.FALSE)
-        case IsNull(s) => continue(Token.NULL)
-        case String(s) => continue(Token.StringToken(s))
-        case Number(s) => continue(Token.NumberToken(s))
+        case LeftCurlyBrace(str) => continue(Token.LEFT_CURLY_BRACE)
+        case RightCurlyBrace(str) => continue(Token.RIGHT_CURLY_BRACE)
+        case LeftSquareBracket(str) => continue(Token.LEFT_SQUARE_BRACKET)
+        case RightSquareBracket(str) => continue(Token.RIGHT_SQUARE_BRACKET)
+        case Colon(str) => continue(Token.COLON)
+        case Comma(str) => continue(Token.COMMA)
+        case IsTrue(str) => continue(Token.TRUE)
+        case IsFalse(str) => continue(Token.FALSE)
+        case IsNull(str) => continue(Token.NULL)
+        case String(str) => continue(Token.StringToken(str))
+        case Number(str) => continue(Token.NumberToken(str))
         case error => println(s"""Could not complete action: $error"""); tokens.reverse
       }
     }
