@@ -1,5 +1,7 @@
 package HTTPSRequestsScala.util
 
+import scala.annotation.tailrec
+
 class JSON {
   trait Token {
     def value: String
@@ -87,11 +89,11 @@ class JSON {
           case (key: Token.StringToken) :: Token.COLON :: aValue :: Nil => Map(key.toString -> value(aValue))
           case (key: Token.StringToken) :: Token.COLON :: aValue :: Token.COMMA :: more => Map(key.toString -> value(aValue)) ++ objectContent(more)
           case (key: Token.StringToken) :: Token.COLON :: Token.LEFT_CURLY_BRACE :: more =>
-            val (objectTokens, theRest) = takeJsonObjectFromHead(Token.LEFT_CURLY_BRACE :: more)
-            Map(key.toString -> value(objectTokens)) ++ objectContent(theRest)
+            val (objectTokens, rest) = takeJsonObjectFromHead(Token.LEFT_CURLY_BRACE :: more)
+            Map(key.toString -> value(objectTokens)) ++ objectContent(rest)
           case (key: Token.StringToken) :: Token.COLON :: Token.LEFT_SQUARE_BRACKET :: more =>
-            val (arrayTokens, theRest) = takeJsonArrayFromHead(Token.LEFT_SQUARE_BRACKET :: more)
-            Map(key.toString -> value(arrayTokens)) ++ objectContent(theRest)
+            val (arrayTokens, rest) = takeJsonArrayFromHead(Token.LEFT_SQUARE_BRACKET :: more)
+            Map(key.toString -> value(arrayTokens)) ++ objectContent(rest)
           case Nil => Map()
           case _ => throw MalformedJSONException("Error", toJsonString(tokens))
         }
@@ -105,14 +107,14 @@ class JSON {
       }
       def arrayContents(tokens: List[Token]): List[Any] = {
         tokens match {
-          case aValue :: Token.COMMA :: theRest => value(aValue) :: arrayContents(theRest)
+          case aValue :: Token.COMMA :: rest => value(aValue) :: arrayContents(rest)
           case aValue :: Nil => value(aValue) :: Nil
           case Token.LEFT_CURLY_BRACE :: _ =>
-            val (objectTokens, theRest) = takeJsonObjectFromHead(tokens)
-            value(objectTokens) :: arrayContents(theRest)
+            val (objectTokens, rest) = takeJsonObjectFromHead(tokens)
+            value(objectTokens) :: arrayContents(rest)
           case Token.LEFT_SQUARE_BRACKET :: _ =>
-            val (arrayTokens, theRest) = takeJsonArrayFromHead(tokens)
-            value(arrayTokens) :: arrayContents(theRest)
+            val (arrayTokens, rest) = takeJsonArrayFromHead(tokens)
+            value(arrayTokens) :: arrayContents(rest)
           case Nil => List()
           case _ => throw MalformedJSONException("Error", toJsonString(tokens))
         }
@@ -129,12 +131,19 @@ class JSON {
       splitAtMatchingTokenPair((Token.LEFT_CURLY_BRACE, Token.RIGHT_CURLY_BRACE), tokens.indexOf(Token.RIGHT_CURLY_BRACE), tokens)
     }
 
+    @tailrec
     private def splitAtMatchingTokenPair(tokenPair: (Token, Token), indexOfNextClosingToken: Int, tokens: List[Token]): (List[Token], List[Token]) = {
-      val (possibleObject, theRest) = tokens.splitAt(indexOfNextClosingToken + 1)
+      val (possibleObject, rest) = tokens.splitAt(indexOfNextClosingToken + 1)
       if (possibleObject.count(_ == tokenPair._1) != possibleObject.count(_ == tokenPair._2)) {
         splitAtMatchingTokenPair(tokenPair, tokens.indexOf(tokenPair._2, indexOfNextClosingToken + 1), tokens)
       } else {
-        (possibleObject, if (theRest.headOption.contains(Token.COMMA)) theRest.tail else theRest)
+        (
+          possibleObject, if (rest.headOption.contains(Token.COMMA)) {
+            rest.tail
+          } else {
+            rest
+          }
+        )
       }
 
     }
@@ -162,10 +171,4 @@ class JSON {
   case class JSONException(JSON: String, throwable: Throwable = null) extends RuntimeException(s"Could not parse: $JSON", throwable)
   case class JSONObjectNotFound(JSONObjectName: String, throwable: Throwable) extends RuntimeException(s"""Could not find any JSON object named, "$JSONObjectName"""", throwable)
   case class MalformedJSONException(malformed: String, JSON: String) extends RuntimeException(s"""Due to $malformed, the data could not be parsed: $JSON""")
-}
-
-object JSON {
-  def main(args: Array[String]): Unit = {
-    println(new JSON().JSONParser.parse("{\"i\": \"1\", \"ii\": {\"i2\": \"2\"} }"))
-  }
 }
