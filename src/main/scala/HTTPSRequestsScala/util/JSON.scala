@@ -11,6 +11,7 @@ object JSON {
   trait Token {
     def value: String
   }
+
   object Token {
     case object LEFT_CURLY_BRACE extends Token { val value: String = "{" }
     case object RIGHT_CURLY_BRACE extends Token { val value: String = "}" }
@@ -154,7 +155,6 @@ object JSON {
 
     }
 
-
     private def value(token: Token): Any = value(List(token))
 
     private def value(tokens: List[Token]): Any = {
@@ -171,7 +171,6 @@ object JSON {
     }
 
     private def toJsonString(tokens: List[Token]) = tokens.map(_.value).mkString
-
   }
 
   case class JSONException(JSON: String, throwable: Throwable = null) extends RuntimeException(s"Could not parse: $JSON", throwable)
