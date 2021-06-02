@@ -4,6 +4,10 @@ package HTTPSRequestsScala.util
 import scala.annotation.tailrec
 
 class JSON {
+  def parse(json: String): Any = {
+    JSONParser.parse(json)
+  }
+
   trait Token {
     def value: String
   }
