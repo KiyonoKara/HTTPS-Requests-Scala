@@ -3,7 +3,7 @@ package HTTPSRequestsScala.util
 // Scala Annotations
 import scala.annotation.tailrec
 
-class JSON {
+object JSON {
   def parse(json: String): Any = {
     JSONParser.parse(json)
   }
