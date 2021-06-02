@@ -34,7 +34,7 @@ class JSON {
     val Number: TokenMatcher = TokenMatcher("[-+]?[0-9]*[\\,\\.]?[0-9]+([eE][-+]?[0-9]+)?")
 
     class TokenMatcher(partialRegex: String) {
-      private val regex = s"""^($partialRegex)""".r
+      private val regex = ("^(" + partialRegex + ")").r
 
       def unapply(string: String): Option[String] = regex.findFirstIn(string)
     }
