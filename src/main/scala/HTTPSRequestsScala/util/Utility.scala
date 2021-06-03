@@ -11,6 +11,9 @@ import java.net.{URLEncoder, URL, URI}
 // Collections
 import scala.collection.mutable.ListBuffer
 
+// Local
+import HTTPSRequestsScala.util.JSON
+
 object Utility {
   def encodeURLParameters(str: Iterable[(String, String)]): String = {
     str.map({
@@ -96,20 +99,11 @@ object Utility {
   }
 
   def JSONToCollections(json: String): Any = {
-    val JSON: String = json.replaceAll("\\s+", "");
-    if (JSON.charAt(0).equals('{') && JSON.charAt(JSON.length - 1).equals('}')) {
-      // TODO: Finish this JSON parser
-      for (i <- JSON) {
-        if (i.equals('"')) {
-
-        }
-      }
-      json
-    }
+    JSON.parse(json)
   }
 
   def main(args: Array[String]): Unit = {
-    JSONToCollections("{\"1\": \"test\"}")
+    println(JSONToCollections("{\"1\": \"test\"}"))
   }
 }
 
