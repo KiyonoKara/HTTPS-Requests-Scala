@@ -77,7 +77,7 @@ object Utility {
         };
 
       case theList: List[_] =>
-        var list = new ListBuffer[String]()
+        val list = new ListBuffer[String]()
         for (listing <- theList) {
           listing match {
             case map: Map[_, _] => list += CollectionsToJSON(map);
