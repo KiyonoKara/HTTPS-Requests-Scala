@@ -91,6 +91,7 @@ object JSON {
       if (tokens.last != Token.RIGHT_CURLY_BRACE) {
         throw MalformedJSONException("JSON is missing a closing '}'", toJsonString(tokens))
       }
+
       def objectContent(tokens: List[Token]): Map[String, Any] = {
         tokens match {
           case (key: Token.StringToken) :: Token.COLON :: aValue :: Nil => Map(key.toString -> value(aValue))
@@ -112,6 +113,7 @@ object JSON {
       if (tokens.last != Token.RIGHT_SQUARE_BRACKET) {
         throw MalformedJSONException("JSON is missing a closing ']'", toJsonString(tokens))
       }
+
       def arrayContents(tokens: List[Token]): List[Any] = {
         tokens match {
           case aValue :: Token.COMMA :: rest => value(aValue) :: arrayContents(rest)
@@ -125,7 +127,6 @@ object JSON {
           case Nil => List()
           case _ => throw MalformedJSONException("Error", toJsonString(tokens))
         }
-
       }
       arrayContents(tokens.tail.init)
     }
