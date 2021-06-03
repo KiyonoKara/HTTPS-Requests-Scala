@@ -101,9 +101,5 @@ object Utility {
   def JSONToCollections(json: String): Any = {
     JSON.parse(json)
   }
-
-  def main(args: Array[String]): Unit = {
-    println(JSONToCollections("{\"1\": \"test\"}"))
-  }
 }
 
