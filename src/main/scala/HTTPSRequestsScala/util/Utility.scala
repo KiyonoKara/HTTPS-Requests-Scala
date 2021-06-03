@@ -31,7 +31,7 @@ object Utility {
   }
 
   def getKeyByValue(map: Map[String, String] = Map.empty[String, String], value: String): String = {
-    map.find(_._2.contains(value)).map(_._1.toString).getOrElse("")
+    map.find(_._2.contains(value)).map(_._1).getOrElse("")
   }
 
   def lowerCaseSingleKV(map: Map[String, String] = Map.empty[String, String], key: String): Map[String, String] = {
