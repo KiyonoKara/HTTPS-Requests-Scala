@@ -8,11 +8,11 @@ object JSON {
     JSONParser.parse(json)
   }
 
-  trait Token {
+  private trait Token {
     def value: String
   }
 
-  object Token {
+  private object Token {
     case object LEFT_CURLY_BRACE extends Token { val value: String = "{" }
     case object RIGHT_CURLY_BRACE extends Token { val value: String = "}" }
     case object LEFT_SQUARE_BRACKET extends Token { val value: String = "[" }
@@ -28,7 +28,7 @@ object JSON {
     }
   }
 
-  object Tokenizer {
+  private object Tokenizer {
     val LeftCurlyBrace: TokenMatcher = TokenMatcher("\\{")
     val RightCurlyBrace: TokenMatcher = TokenMatcher("\\}")
     val LeftSquareBracket: TokenMatcher = TokenMatcher("\\[")
@@ -41,7 +41,7 @@ object JSON {
     val String: TokenMatcher = TokenMatcher("\".*?\"")
     val Number: TokenMatcher = TokenMatcher("[-+]?[0-9]*[\\,\\.]?[0-9]+([eE][-+]?[0-9]+)?")
 
-    class TokenMatcher(partialRegex: String) {
+    private class TokenMatcher(partialRegex: String) {
       private val regex = ("^(" + partialRegex + ")").r
 
       def unapply(string: String): Option[String] = regex.findFirstIn(string)
@@ -174,7 +174,7 @@ object JSON {
     private def toJsonString(tokens: List[Token]) = tokens.map(_.value).mkString
   }
 
-  case class JSONException(JSON: String, throwable: Throwable = null) extends RuntimeException(s"Could not parse: $JSON", throwable)
-  case class JSONObjectNotFound(JSONObjectName: String, throwable: Throwable) extends RuntimeException(s"""Could not find any JSON object named, "$JSONObjectName"""", throwable)
-  case class MalformedJSONException(malformed: String, JSON: String) extends RuntimeException(s"""Due to $malformed, the data could not be parsed: $JSON""")
+  private case class JSONException(JSON: String, throwable: Throwable = null) extends RuntimeException(s"Could not parse: $JSON", throwable)
+  private case class JSONObjectNotFound(JSONObjectName: String, throwable: Throwable) extends RuntimeException(s"""Could not find any JSON object named, "$JSONObjectName"""", throwable)
+  private case class MalformedJSONException(malformed: String, JSON: String) extends RuntimeException(s"""Due to $malformed, the data could not be parsed: $JSON""")
 }
