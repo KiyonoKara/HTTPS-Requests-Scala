@@ -157,4 +157,13 @@ class Request(var url: String = null, var method: String = Constants.GET, header
   def mapToJSON(map: Map[String, String] = Map.empty): String = {
     Utility.singleMapToJSON(map)
   }
+
+  /** Parses JSON into default collections such as Map and List
+   *
+   * @param json JSON data in the form of a string
+   * @return Any, related to collections
+   */
+  def parseJSON(json: String): Any = {
+    Utility.JSONToCollections(json)
+  }
 }
