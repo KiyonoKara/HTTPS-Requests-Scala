@@ -1,8 +1,8 @@
-package HTTPSRequestsScala.RequestTypes
+package HTTPSRequestsScala
 
 /**
  * Created by KaNguy - 04/26/2021
- * File HTTPSRequestsScala.RequestTypes.WritableRequests.scala
+ * File HTTPSRequestsScala.WritableRequests.scala
  */
 
 // Data streaming and serialization
@@ -18,7 +18,7 @@ import java.nio.charset.StandardCharsets
 import scala.io.Source.fromInputStream
 
 // Local utils
-import HTTPSRequestsScala.util.{Constants, OutputReader, HandleHeaders}
+import HTTPSRequestsScala.util.{Constants, HandleHeaders, OutputReader}
 
 // Other
 import java.lang.reflect.Field
