@@ -2,7 +2,7 @@ package HTTPSRequestsScala.RequestTypes
 
 /**
  * Created by KaNguy - 04/26/2021
- * File HTTPSRequestsScala.RequestTypes.WritableRequests.scala
+ * File HTTPSRequestsScala.WritableRequests.scala
  */
 
 // Data streaming and serialization

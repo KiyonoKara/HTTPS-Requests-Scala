@@ -6,7 +6,7 @@ package HTTPSRequestsScala
  */
 
 // Networking and web
-import java.net.{HttpURLConnection, URL, URI, ConnectException}
+import java.net.{ConnectException, HttpURLConnection, URI, URL}
 import javax.net.ssl.SSLException
 
 // Java HTTP
@@ -16,7 +16,6 @@ import java.net.http.{HttpClient, HttpHeaders, HttpRequest, HttpResponse}
 import scala.io.Source.fromInputStream
 
 // Request classes
-import RequestTypes.WritableRequests
 
 // Local utilities
 import HTTPSRequestsScala.util.{Constants, OutputReader, HandleHeaders, Utility}
