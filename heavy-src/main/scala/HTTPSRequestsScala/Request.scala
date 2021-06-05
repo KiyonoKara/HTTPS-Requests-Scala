@@ -122,6 +122,11 @@ class Request(var url: String = null, var method: String = Constants.GET, header
     content
   }
 
+  /** Performs a head request that has no output, the output are the headers
+   *
+   * @param url Provide the URL needed for getting the headers
+   * @return List of headers in the form of a string
+   */
   def head(url: String = this.url): String = {
     val client: HttpClient = HttpClient.newHttpClient()
     val headRequest: HttpRequest  = HttpRequest.newBuilder(URI.create(url))
