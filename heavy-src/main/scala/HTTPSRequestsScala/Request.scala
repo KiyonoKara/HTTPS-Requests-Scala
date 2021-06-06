@@ -144,6 +144,10 @@ class Request(var url: String = null, var method: String = Constants.GET, header
     strHeaders
   }
 
+  def post(url: String = this.url, data: String = null): String = {
+
+  }
+
   /** Can turn collections into JSON data as a string
    *
    * @param collections Any; Accepts collections and primitive types
