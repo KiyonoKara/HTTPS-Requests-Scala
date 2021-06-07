@@ -144,8 +144,11 @@ class Request(var url: String = null, var method: String = Constants.GET, header
     strHeaders
   }
 
-  def post(url: String = this.url, data: String = null): String = {
-
+  def post(url: String = this.url, data: String = null, headers: Iterable[(String, String)] = Nil): String = {
+    val client: HttpRequest = HttpRequest.newBuilder()
+                              .POST(HttpRequest.BodyPublishers.ofString(data))
+                              .uri(URI.create(url))
+                              .build()
   }
 
   /** Can turn collections into JSON data as a string
