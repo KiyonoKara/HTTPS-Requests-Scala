@@ -140,14 +140,18 @@ class Request(var url: String = null, var method: String = Constants.GET, header
   }
 
   def post(url: String = this.url, data: String = null, headers: Iterable[(String, String)] = Nil): String = {
-    val client: HttpRequest.Builder = HttpRequest.newBuilder()
+    val request: HttpRequest.Builder = HttpRequest.newBuilder()
       .POST(HttpRequest.BodyPublishers.ofString(data))
       .uri(URI.create(url))
     if (headers.nonEmpty) {
       headers.foreach(i => {
-        client.setHeader(i._1, i._2)
+        request.setHeader(i._1, i._2)
       })
     }
+
+    request.build()
+
+    //val response: HttpResponse[String] =
   }
 
   /** Can turn collections into JSON data as a string
