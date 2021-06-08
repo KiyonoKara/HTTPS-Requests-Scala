@@ -153,9 +153,8 @@ class Request(var url: String = null, var method: String = Constants.GET, header
       })
     }
 
-    request.build()
-
-    //val response: HttpResponse[String] =
+    val response: HttpResponse[String] = client.send(request.build(), HttpResponse.BodyHandlers.ofString())
+    response.body
   }
 
   /** Can turn collections into JSON data as a string
