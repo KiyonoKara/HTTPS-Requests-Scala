@@ -143,6 +143,11 @@ class Request(var url: String = null, var method: String = Constants.GET, header
     val client: HttpRequest.Builder = HttpRequest.newBuilder()
       .POST(HttpRequest.BodyPublishers.ofString(data))
       .uri(URI.create(url))
+    if (headers.nonEmpty) {
+      headers.foreach(i => {
+        client.setHeader(i._1, i._2)
+      })
+    }
   }
 
   /** Can turn collections into JSON data as a string
