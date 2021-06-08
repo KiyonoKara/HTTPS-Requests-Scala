@@ -140,6 +140,10 @@ class Request(var url: String = null, var method: String = Constants.GET, header
   }
 
   def post(url: String = this.url, data: String = null, headers: Iterable[(String, String)] = Nil): String = {
+    val client: HttpClient = HttpClient.newBuilder()
+      .version(HttpClient.Version.HTTP_2)
+      .build()
+
     val request: HttpRequest.Builder = HttpRequest.newBuilder()
       .POST(HttpRequest.BodyPublishers.ofString(data))
       .uri(URI.create(url))
