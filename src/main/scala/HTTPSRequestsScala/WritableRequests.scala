@@ -101,6 +101,10 @@ class WritableRequests() {
         inputStream.close()
         content
       }
+    } catch {
+      case error: Error =>
+        error.printStackTrace()
+        error.toString
     }
   }
 }
