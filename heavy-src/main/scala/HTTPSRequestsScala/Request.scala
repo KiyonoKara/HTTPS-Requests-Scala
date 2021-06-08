@@ -130,8 +130,8 @@ class Request(var url: String = null, var method: String = Constants.GET, header
   def head(url: String = this.url): String = {
     val client: HttpClient = HttpClient.newHttpClient()
     val headRequest: HttpRequest = HttpRequest.newBuilder(URI.create(url))
-                      .method(Constants.HEAD, HttpRequest.BodyPublishers.noBody())
-                      .build()
+      .method(Constants.HEAD, HttpRequest.BodyPublishers.noBody())
+      .build()
 
     val response: HttpResponse[Void] = client.send(headRequest, HttpResponse.BodyHandlers.discarding())
     val headers: HttpHeaders = response.headers()
@@ -145,10 +145,15 @@ class Request(var url: String = null, var method: String = Constants.GET, header
   }
 
   def post(url: String = this.url, data: String = null, headers: Iterable[(String, String)] = Nil): String = {
-    val client: HttpRequest = HttpRequest.newBuilder()
-                              .POST(HttpRequest.BodyPublishers.ofString(data))
-                              .uri(URI.create(url))
-                              .build()
+    val client: HttpRequest.Builder = HttpRequest.newBuilder()
+      .POST(HttpRequest.BodyPublishers.ofString(data))
+      .uri(URI.create(url))
+    if (headers.nonEmpty) {
+      headers.foreach(i => {
+        client.setHeader(i._1, i._2)
+      })
+    }
+    client: HttpRequest = client.build().asInstanceOf[HttpRequest]
   }
 
   /** Can turn collections into JSON data as a string
