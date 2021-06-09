@@ -152,7 +152,7 @@ class Request(var url: String = null, var method: String = Constants.GET, header
       .build()
 
     val request: HttpRequest.Builder = HttpRequest.newBuilder()
-      .POST(HttpRequest.BodyPublishers.ofString(data))
+      .POST(HttpRequest.BodyPublishers.ofString(if (data == null) return new StringBuilder().toString() else data))
       .uri(URI.create(url))
     if (headers.nonEmpty) {
       headers.foreach(i => {
