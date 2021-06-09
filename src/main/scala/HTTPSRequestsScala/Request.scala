@@ -139,6 +139,13 @@ class Request(var url: String = null, var method: String = Constants.GET, header
     strHeaders
   }
 
+  /** Makes a simple and fast POST request using Java's HTTP Client
+   *
+   * @param url URL for making the POST request
+   * @param data The data / body used for the POST request
+   * @param headers Headers for indicating content type or etc.
+   * @return Written output from the POST request, most POST requests will have some type of output.
+   */
   def post(url: String = this.url, data: String = null, headers: Iterable[(String, String)] = Nil): String = {
     val client: HttpClient = HttpClient.newBuilder()
       .version(HttpClient.Version.HTTP_2)
