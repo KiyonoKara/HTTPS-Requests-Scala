@@ -124,7 +124,7 @@ class Request(var url: String = null, var method: String = Constants.GET, header
 
   def head(url: String = this.url): String = {
     val client: HttpClient = HttpClient.newHttpClient()
-    val headRequest: HttpRequest  = HttpRequest.newBuilder(URI.create(url))
+    val headRequest: HttpRequest = HttpRequest.newBuilder(URI.create(url))
                       .method(Constants.HEAD, HttpRequest.BodyPublishers.noBody())
                       .build()
 
