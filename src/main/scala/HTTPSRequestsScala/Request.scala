@@ -148,8 +148,8 @@ class Request(var url: String = null, var method: String = Constants.GET, header
    */
   def post(url: String = this.url, data: String = null, headers: Iterable[(String, String)] = Nil, version: String = HttpClient.Version.HTTP_2.toString): String = {
     val client: HttpClient = HttpClient.newBuilder()
-      .version(HttpClient.Version.valueOf(version.toUpperCase))
-      .build()
+                              .version(HttpClient.Version.valueOf(version.toUpperCase))
+                              .build()
 
     val request: HttpRequest.Builder = HttpRequest.newBuilder()
       .POST(HttpRequest.BodyPublishers.ofString(if (data == null) return new StringBuilder().toString() else data))
