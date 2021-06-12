@@ -122,6 +122,11 @@ class Request(var url: String = null, var method: String = Constants.GET, header
     content
   }
 
+  /** Creates a HEAD request that gets the headers of the response, there is no body from HEAD requests
+   *
+   * @param url Provide an URL for making the HEAD request
+   * @return A long string with all the response headers, this is not the body of the request
+   */
   def head(url: String = this.url): String = {
     val client: HttpClient = HttpClient.newHttpClient()
     val headRequest: HttpRequest = HttpRequest.newBuilder(URI.create(url))
