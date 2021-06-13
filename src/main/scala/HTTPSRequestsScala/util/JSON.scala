@@ -171,6 +171,11 @@ object JSON {
       }
     }
 
+    /**
+     * Stringifies JSON
+     * @param tokens Parsed tokens
+     * @return Stringed JSON data that is parsable
+     */
     private def toJSONString(tokens: List[Token]) = tokens.map(_.value).mkString
   }
 
