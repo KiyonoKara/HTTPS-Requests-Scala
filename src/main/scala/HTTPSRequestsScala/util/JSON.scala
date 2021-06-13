@@ -187,5 +187,11 @@ object JSON {
    * @param throwable Error
    */
   private case class JSONObjectNotFound(JSONObjectName: String, throwable: Throwable) extends RuntimeException(s"""Could not find any JSON object named, "$JSONObjectName"""", throwable)
+
+  /**
+   * Case class for throwing malformed-JSON errors
+   * @param malformed The malformed data
+   * @param JSON The JSON data
+   */
   private case class MalformedJSONException(malformed: String, JSON: String) extends RuntimeException(s"""Due to $malformed, the data could not be parsed: $JSON""")
 }
