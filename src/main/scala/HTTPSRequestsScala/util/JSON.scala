@@ -174,7 +174,14 @@ object JSON {
     private def toJsonString(tokens: List[Token]) = tokens.map(_.value).mkString
   }
 
+  /**
+   * Class made for handling errors in case the JSON cannot be parsed
+   * @param JSON JSON data as a String
+   * @param throwable Error
+   */
   private case class JSONException(JSON: String, throwable: Throwable = null) extends RuntimeException(s"Could not parse: $JSON", throwable)
+
+
   private case class JSONObjectNotFound(JSONObjectName: String, throwable: Throwable) extends RuntimeException(s"""Could not find any JSON object named, "$JSONObjectName"""", throwable)
   private case class MalformedJSONException(malformed: String, JSON: String) extends RuntimeException(s"""Due to $malformed, the data could not be parsed: $JSON""")
 }
