@@ -83,13 +83,13 @@ object JSON {
     private def parse(tokens: List[Token]): Any = tokens match {
       case Token.LEFT_CURLY_BRACE :: _ => jsonObject(tokens)
       case Token.LEFT_SQUARE_BRACKET :: _ => jsonArray(tokens)
-      case _ => throw JSONException(toJsonString(tokens))
+      case _ => throw JSONException(toJSONString(tokens))
 
     }
 
     private def jsonObject(tokens: List[Token]): Map[String, Any] = {
       if (tokens.last != Token.RIGHT_CURLY_BRACE) {
-        throw MalformedJSONException("JSON is missing a closing '}'", toJsonString(tokens))
+        throw MalformedJSONException("JSON is missing a closing '}'", toJSONString(tokens))
       }
 
       def objectContent(tokens: List[Token]): Map[String, Any] = {
@@ -103,7 +103,7 @@ object JSON {
             val (arrayTokens, rest) = takeJsonArrayFromHead(Token.LEFT_SQUARE_BRACKET :: more)
             Map(key.toString -> value(arrayTokens)) ++ objectContent(rest)
           case Nil => Map()
-          case _ => throw MalformedJSONException("Error", toJsonString(tokens))
+          case _ => throw MalformedJSONException("Error", toJSONString(tokens))
         }
       }
       objectContent(tokens.tail.init)
@@ -111,7 +111,7 @@ object JSON {
 
     private def jsonArray(tokens: List[Token]): List[Any] = {
       if (tokens.last != Token.RIGHT_SQUARE_BRACKET) {
-        throw MalformedJSONException("JSON is missing a closing ']'", toJsonString(tokens))
+        throw MalformedJSONException("JSON is missing a closing ']'", toJSONString(tokens))
       }
 
       def arrayContents(tokens: List[Token]): List[Any] = {
@@ -125,7 +125,7 @@ object JSON {
             val (arrayTokens, rest) = takeJsonArrayFromHead(tokens)
             value(arrayTokens) :: arrayContents(rest)
           case Nil => List()
-          case _ => throw MalformedJSONException("Error", toJsonString(tokens))
+          case _ => throw MalformedJSONException("Error", toJSONString(tokens))
         }
       }
       arrayContents(tokens.tail.init)
@@ -167,11 +167,11 @@ object JSON {
         case Token.TRUE :: Nil => true
         case Token.FALSE :: Nil => false
         case Token.NULL :: Nil => null
-        case _ => throw MalformedJSONException("Error", toJsonString(tokens))
+        case _ => throw MalformedJSONException("Error", toJSONString(tokens))
       }
     }
 
-    private def toJsonString(tokens: List[Token]) = tokens.map(_.value).mkString
+    private def toJSONString(tokens: List[Token]) = tokens.map(_.value).mkString
   }
 
   /**
