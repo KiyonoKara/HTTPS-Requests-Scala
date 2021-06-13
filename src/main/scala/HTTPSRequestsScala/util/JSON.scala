@@ -1,5 +1,10 @@
 package HTTPSRequestsScala.util
 
+/**
+ * Created by KaNguy - 06/01/2021
+ * File HTTPSRequestsScala.util.JSON.scala
+ */
+
 // Scala Annotations
 import scala.annotation.tailrec
 
