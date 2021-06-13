@@ -175,7 +175,7 @@ object JSON {
   }
 
   /**
-   * Class made for handling errors in case the JSON cannot be parsed
+   * Case lass made for handling errors in case the JSON cannot be parsed
    * @param JSON JSON data as a String
    * @param throwable Error
    */
