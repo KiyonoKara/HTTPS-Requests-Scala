@@ -86,13 +86,13 @@ object JSON {
     def parse(json: String): Any = parse(Tokenizer.tokenize(json))
 
     private def parse(tokens: List[Token]): Any = tokens match {
-      case Token.LEFT_CURLY_BRACE :: _ => jsonObject(tokens)
+      case Token.LEFT_CURLY_BRACE :: _ => JSONObject(tokens)
       case Token.LEFT_SQUARE_BRACKET :: _ => jsonArray(tokens)
       case _ => throw JSONException(toJSONString(tokens))
 
     }
 
-    private def jsonObject(tokens: List[Token]): Map[String, Any] = {
+    private def JSONObject(tokens: List[Token]): Map[String, Any] = {
       if (tokens.last != Token.RIGHT_CURLY_BRACE) {
         throw MalformedJSONException("JSON is missing a closing '}'", toJSONString(tokens))
       }
@@ -102,10 +102,10 @@ object JSON {
           case (key: Token.StringToken) :: Token.COLON :: aValue :: Nil => Map(key.toString -> value(aValue))
           case (key: Token.StringToken) :: Token.COLON :: aValue :: Token.COMMA :: more => Map(key.toString -> value(aValue)) ++ objectContent(more)
           case (key: Token.StringToken) :: Token.COLON :: Token.LEFT_CURLY_BRACE :: more =>
-            val (objectTokens, rest) = takeJsonObjectFromHead(Token.LEFT_CURLY_BRACE :: more)
+            val (objectTokens, rest) = takeJSONObjectFromHead(Token.LEFT_CURLY_BRACE :: more)
             Map(key.toString -> value(objectTokens)) ++ objectContent(rest)
           case (key: Token.StringToken) :: Token.COLON :: Token.LEFT_SQUARE_BRACKET :: more =>
-            val (arrayTokens, rest) = takeJsonArrayFromHead(Token.LEFT_SQUARE_BRACKET :: more)
+            val (arrayTokens, rest) = takeJSONArrayFromHead(Token.LEFT_SQUARE_BRACKET :: more)
             Map(key.toString -> value(arrayTokens)) ++ objectContent(rest)
           case Nil => Map()
           case _ => throw MalformedJSONException("Error", toJSONString(tokens))
@@ -124,10 +124,10 @@ object JSON {
           case aValue :: Token.COMMA :: rest => value(aValue) :: arrayContents(rest)
           case aValue :: Nil => value(aValue) :: Nil
           case Token.LEFT_CURLY_BRACE :: _ =>
-            val (objectTokens, rest) = takeJsonObjectFromHead(tokens)
+            val (objectTokens, rest) = takeJSONObjectFromHead(tokens)
             value(objectTokens) :: arrayContents(rest)
           case Token.LEFT_SQUARE_BRACKET :: _ =>
-            val (arrayTokens, rest) = takeJsonArrayFromHead(tokens)
+            val (arrayTokens, rest) = takeJSONArrayFromHead(tokens)
             value(arrayTokens) :: arrayContents(rest)
           case Nil => List()
           case _ => throw MalformedJSONException("Error", toJSONString(tokens))
@@ -136,11 +136,11 @@ object JSON {
       arrayContents(tokens.tail.init)
     }
 
-    private def takeJsonArrayFromHead(tokens: List[Token]): (List[Token], List[Token]) = {
+    private def takeJSONArrayFromHead(tokens: List[Token]): (List[Token], List[Token]) = {
       splitAtMatchingTokenPair((Token.LEFT_SQUARE_BRACKET, Token.RIGHT_SQUARE_BRACKET), tokens.indexOf(Token.RIGHT_SQUARE_BRACKET), tokens)
     }
 
-    private def takeJsonObjectFromHead(tokens: List[Token]): (List[Token], List[Token]) = {
+    private def takeJSONObjectFromHead(tokens: List[Token]): (List[Token], List[Token]) = {
       splitAtMatchingTokenPair((Token.LEFT_CURLY_BRACE, Token.RIGHT_CURLY_BRACE), tokens.indexOf(Token.RIGHT_CURLY_BRACE), tokens)
     }
 
@@ -167,7 +167,7 @@ object JSON {
       tokens match {
         case (value: Token.StringToken) :: Nil => value.toString()
         case Token.NumberToken(number) :: Nil => BigDecimal(number)
-        case Token.LEFT_CURLY_BRACE :: _ => jsonObject(tokens)
+        case Token.LEFT_CURLY_BRACE :: _ => JSONObject(tokens)
         case Token.LEFT_SQUARE_BRACKET :: _ => jsonArray(tokens)
         case Token.TRUE :: Nil => true
         case Token.FALSE :: Nil => false
