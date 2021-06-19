@@ -87,7 +87,7 @@ object JSON {
 
     private def parse(tokens: List[Token]): Any = tokens match {
       case Token.LEFT_CURLY_BRACE :: _ => JSONObject(tokens)
-      case Token.LEFT_SQUARE_BRACKET :: _ => jsonArray(tokens)
+      case Token.LEFT_SQUARE_BRACKET :: _ => JSONArray(tokens)
       case _ => throw JSONException(toJSONString(tokens))
 
     }
@@ -114,7 +114,7 @@ object JSON {
       objectContent(tokens.tail.init)
     }
 
-    private def jsonArray(tokens: List[Token]): List[Any] = {
+    private def JSONArray(tokens: List[Token]): List[Any] = {
       if (tokens.last != Token.RIGHT_SQUARE_BRACKET) {
         throw MalformedJSONException("JSON is missing a closing ']'", toJSONString(tokens))
       }
@@ -168,7 +168,7 @@ object JSON {
         case (value: Token.StringToken) :: Nil => value.toString()
         case Token.NumberToken(number) :: Nil => BigDecimal(number)
         case Token.LEFT_CURLY_BRACE :: _ => JSONObject(tokens)
-        case Token.LEFT_SQUARE_BRACKET :: _ => jsonArray(tokens)
+        case Token.LEFT_SQUARE_BRACKET :: _ => JSONArray(tokens)
         case Token.TRUE :: Nil => true
         case Token.FALSE :: Nil => false
         case Token.NULL :: Nil => null
