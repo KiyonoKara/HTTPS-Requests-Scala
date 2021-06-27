@@ -76,4 +76,5 @@ object RequestApp extends App {
   val parsedPUT = requester.parseJSON(PUT)
   val parsedPATCH = requester.parseJSON(PATCH)
   println(parsedGET + "\n" + parsedPOST + "\n" + parsedPOSTPayload + "\n" + parsedDELETE + "\n" + parsedPUT + "\n" + parsedPATCH)
+  println(parsedGET.asInstanceOf[Map[Any, Any]].getOrElse("status", "status") + "\n" + parsedGET.asInstanceOf[Map[Any, Any]].getOrElse("status", "status").asInstanceOf[Map[Any, Any]].getOrElse("code", "message"))
 }
