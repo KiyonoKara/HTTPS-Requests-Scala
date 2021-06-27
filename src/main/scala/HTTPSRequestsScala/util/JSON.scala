@@ -8,6 +8,10 @@ package HTTPSRequestsScala.util
 // Scala Annotations
 import scala.annotation.tailrec
 
+// Numbers
+import java.text.{NumberFormat, DecimalFormat}
+import java.util.Locale
+
 object JSON {
   def parse(json: String): Any = {
     JSONParser.parse(json)
@@ -57,7 +61,7 @@ object JSON {
     }
 
     def tokenize(json: String, tokens: List[Token] = List()): List[Token] = {
-      val trimmedJSON = json.trim.replaceAll("\\s+", "")
+      val trimmedJSON = json.trim
 
       def continue(token: Token): List[Token] = {
         tokenize(trimmedJSON.substring(token.value.length), token :: tokens)
@@ -166,7 +170,7 @@ object JSON {
     private def value(tokens: List[Token]): Any = {
       tokens match {
         case (value: Token.StringToken) :: Nil => value.toString()
-        case Token.NumberToken(number) :: Nil => BigDecimal(number)
+        case Token.NumberToken(number) :: Nil => BigDecimal(number.replaceAll(",", ""))
         case Token.LEFT_CURLY_BRACE :: _ => JSONObject(tokens)
         case Token.LEFT_SQUARE_BRACKET :: _ => JSONArray(tokens)
         case Token.TRUE :: Nil => true
