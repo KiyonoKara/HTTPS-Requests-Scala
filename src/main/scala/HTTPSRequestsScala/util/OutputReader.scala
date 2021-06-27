@@ -15,12 +15,20 @@ import java.net.HttpURLConnection
 import java.util.zip.GZIPInputStream
 
 object OutputReader {
+  /** Reads output of a connection established via the HttpURLConnection class
+   *
+   * @param connection HttpURLConnection
+   * @param inputStream InputStream
+   * @return String of the output
+   */
   def read(connection: HttpURLConnection, inputStream: InputStream = null): String = {
     var connectionInputStream: InputStream = null
     if (inputStream != null) connectionInputStream = inputStream else connectionInputStream = connection.getInputStream
 
+    // Set the reader to a null value before reading the output
     var reader: Reader = null
 
+    // If the content encoding is GZIP then it will unzip the contents, then read the data
     if (connection.getContentEncoding != null && connection.getContentEncoding.equals("gzip")) {
       reader = new InputStreamReader(new GZIPInputStream(connectionInputStream))
     } else {
