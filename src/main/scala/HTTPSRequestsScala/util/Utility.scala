@@ -61,7 +61,7 @@ object Utility {
   }
 
   def CollectionsToJSON(collections: Any): String = {
-    var JSON = new ListBuffer[String]()
+    val JSON = new ListBuffer[String]()
     collections match {
       case map: Map[_, _] =>
         for ((k, v) <- map) {
