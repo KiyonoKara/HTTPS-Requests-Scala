@@ -67,4 +67,13 @@ object RequestApp extends App {
   // Quick methods
   val qPOST: String = requester.post("http://localhost:8080/echo", "{\"message\": \"Quick POST message\"}", headers = Map("Content-Type" -> "application/json; charset=UTF-8", "User-Agent" -> "Scala", "Accept" -> "application/json"))
   println(qPOST)
+
+  // JSON parsing
+  val parsedGET = requester.parseJSON(GET)
+  val parsedPOST = requester.parseJSON(POST)
+  val parsedPOSTPayload = requester.parseJSON(POSTPayload)
+  val parsedDELETE = requester.parseJSON(DELETE)
+  val parsedPUT = requester.parseJSON(PUT)
+  val parsedPATCH = requester.parseJSON(PATCH)
+  println(parsedGET + "\n" + parsedPOST + "\n" + parsedPOSTPayload + "\n" + parsedDELETE + "\n" + parsedPUT + "\n" + parsedPATCH)
 }
