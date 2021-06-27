@@ -61,6 +61,6 @@ object RequestApp extends App {
   println(PATCH)
 
   // HEAD, read-only
-  val HEAD: String = requester.request("http://localhost:8080/echo", "HEAD")
+  val HEAD: String = requester.head("http://localhost:8080/echo")
   println(HEAD)
 }
