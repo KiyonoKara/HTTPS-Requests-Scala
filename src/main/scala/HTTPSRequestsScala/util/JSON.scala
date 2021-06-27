@@ -99,8 +99,8 @@ object JSON {
 
       def objectContent(tokens: List[Token]): Map[String, Any] = {
         tokens match {
-          case (key: Token.StringToken) :: Token.COLON :: aValue :: Nil => Map(key.toString -> value(aValue))
-          case (key: Token.StringToken) :: Token.COLON :: aValue :: Token.COMMA :: more => Map(key.toString -> value(aValue)) ++ objectContent(more)
+          case (key: Token.StringToken) :: Token.COLON :: firstValue :: Nil => Map(key.toString -> value(firstValue))
+          case (key: Token.StringToken) :: Token.COLON :: firstValue :: Token.COMMA :: more => Map(key.toString -> value(firstValue)) ++ objectContent(more)
           case (key: Token.StringToken) :: Token.COLON :: Token.LEFT_CURLY_BRACE :: more =>
             val (objectTokens, rest) = takeJSONObjectFromHead(Token.LEFT_CURLY_BRACE :: more)
             Map(key.toString -> value(objectTokens)) ++ objectContent(rest)
