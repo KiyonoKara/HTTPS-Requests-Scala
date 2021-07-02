@@ -12,6 +12,11 @@ import java.net.{URLEncoder, URL, URI}
 import scala.collection.mutable.ListBuffer
 
 object Utility {
+  /** Encodes URL parameters for queries
+   *
+   * @param str URL parameters as an iterable collection
+   * @return String with the URL parameters in the URL format
+   */
   def encodeURLParameters(str: Iterable[(String, String)]): String = {
     str.map({
       case (k, v) =>
