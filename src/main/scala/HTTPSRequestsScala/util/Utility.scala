@@ -11,9 +11,6 @@ import java.net.{URLEncoder, URL, URI}
 // Collections
 import scala.collection.mutable.ListBuffer
 
-// Local
-import HTTPSRequestsScala.util.JSON
-
 object Utility {
   def encodeURLParameters(str: Iterable[(String, String)]): String = {
     str.map({
