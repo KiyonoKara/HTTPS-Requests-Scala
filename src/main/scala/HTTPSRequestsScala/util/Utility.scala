@@ -85,6 +85,11 @@ object Utility {
     json
   }
 
+  /** Creates a valid and parsable JSON string from a provided collection
+   *
+   * @param collections Map, List, Int, Boolean, and String are valid types if the collection is started off with a Map
+   * @return JSON string
+   */
   def CollectionsToJSON(collections: Any): String = {
     val JSON = new ListBuffer[String]()
     collections match {
