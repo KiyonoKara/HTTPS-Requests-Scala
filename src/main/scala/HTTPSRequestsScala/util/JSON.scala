@@ -8,10 +8,6 @@ package HTTPSRequestsScala.util
 // Scala Annotations
 import scala.annotation.tailrec
 
-// Numbers
-import java.text.{NumberFormat, DecimalFormat}
-import java.util.Locale
-
 object JSON {
   def parse(json: String): Any = {
     JSONParser.parse(json)
