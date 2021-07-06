@@ -64,6 +64,11 @@ object Utility {
     fin
   }
 
+  /** Turns a map collection into a JSON string, this is not efficient and only works for single-key maps that do not have nested collections
+   *
+   * @param map Non-nested map collection
+   * @return JSON string
+   */
   def singleMapToJSON(map: Map[String, String]): String = {
     var json: String = ""
 
