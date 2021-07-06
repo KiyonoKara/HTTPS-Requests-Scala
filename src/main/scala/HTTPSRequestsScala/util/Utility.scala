@@ -128,6 +128,11 @@ object Utility {
     JSONString
   }
 
+  /** Parses JSON into a collection, primarily an immutable Map; this method is a medium for the JSON parser that is in this library
+   *
+   * @param json The JSON string
+   * @return Typically a map
+   */
   def JSONToCollections(json: String): Any = {
     JSON.parse(json)
   }
