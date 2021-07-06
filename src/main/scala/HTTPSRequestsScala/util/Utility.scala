@@ -24,6 +24,12 @@ object Utility {
     }).mkString("&")
   }
 
+  /** Creates an URL with a method-based approach by using an URL and taking parameters in the form of an iterable collection
+   *
+   * @param url String with the URL
+   * @param urlParameters URL parameters
+   * @return Completed URL with the parameters
+   */
   def createURL(url: String, urlParameters: Iterable[(String, String)] = Nil): String = {
     val newURL: URL = new URL(new URI(url).toASCIIString)
     if (urlParameters == Nil) return s"""$newURL"""
