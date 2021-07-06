@@ -38,6 +38,12 @@ object Utility {
     s"""$newURL$separator$encodedURLParameters"""
   }
 
+  /** Gets a map key by its value
+   *
+   * @param map Collection map
+   * @param value Value of the key
+   * @return Key name
+   */
   def getKeyByValue(map: Map[String, String] = Map.empty[String, String], value: String): String = {
     map.find(_._2.contains(value)).map(_._1).getOrElse("")
   }
