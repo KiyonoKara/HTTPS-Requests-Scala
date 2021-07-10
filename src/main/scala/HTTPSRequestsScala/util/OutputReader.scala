@@ -6,13 +6,14 @@ package HTTPSRequestsScala.util
  */
 
 // IO imports
-import java.io.{InputStreamReader, InputStream, Reader}
+import java.io.{InputStream, InputStreamReader, Reader}
 
 // Networking
 import java.net.HttpURLConnection
 
 // Compression
 import java.util.zip.GZIPInputStream
+import java.util.zip.DeflaterInputStream
 
 object OutputReader {
   /** Reads output of a connection established via the HttpURLConnection class
@@ -28,12 +29,16 @@ object OutputReader {
     // Set the reader to a null value before reading the output
     var reader: Reader = null
 
-    // If the content encoding is GZIP then it will unzip the contents, then read the data
+    // GZIP data streaming
     if (connection.getContentEncoding != null && connection.getContentEncoding.equals("gzip")) {
       reader = new InputStreamReader(new GZIPInputStream(connectionInputStream))
-    } else {
-      reader = new InputStreamReader(connection.getInputStream)
-    }
+    } else reader = new InputStreamReader(connection.getInputStream)
+
+    // Deflate data streaming
+    if (connection.getContentEncoding != null && connection.getContentEncoding.equals("deflate")) {
+      reader = new InputStreamReader(new DeflaterInputStream(connectionInputStream))
+    } else reader = new InputStreamReader(connection.getInputStream)
+
 
     // Empty char value
     var ch: Int = 0
