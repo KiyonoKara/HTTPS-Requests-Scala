@@ -18,7 +18,7 @@ import scala.io.Source.fromInputStream
 // Request classes
 
 // Local utilities
-import HTTPSRequestsScala.util.{Constants, OutputReader, HandleHeaders, Utility}
+import HTTPSRequestsScala.utility.{Constants, OutputReader, HandleHeaders, Utility}
 
 // Other
 import java.lang.reflect.Field

@@ -1,4 +1,4 @@
-package HTTPSRequestsScala.util
+package HTTPSRequestsScala.utility
 
 // Scala Annotations
 import scala.annotation.tailrec

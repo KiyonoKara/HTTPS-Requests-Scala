@@ -1,4 +1,4 @@
-package HTTPSRequestsScala.util
+package HTTPSRequestsScala.utility
 
 /**
  * Created by KaNguy - 04/24/2021

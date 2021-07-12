@@ -3,7 +3,7 @@
  * File HTTPSRequestsScala.util.Convert.scala
  */
 
-package HTTPSRequestsScala.util
+package HTTPSRequestsScala.utility
 
 // Util
 import java.util

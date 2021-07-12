@@ -1,4 +1,4 @@
-package HTTPSRequestsScala.util
+package HTTPSRequestsScala.utility
 
 /**
  * Created by KaNguy - 05/07/2021
@@ -12,7 +12,7 @@ import java.net.{URLEncoder, URL, URI}
 import scala.collection.mutable.ListBuffer
 
 // Local
-import HTTPSRequestsScala.util.JSON
+import HTTPSRequestsScala.utility.JSON
 
 object Utility {
   def encodeURLParameters(str: Iterable[(String, String)]): String = {

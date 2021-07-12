@@ -18,7 +18,7 @@ import java.nio.charset.StandardCharsets
 import scala.io.Source.fromInputStream
 
 // Utilities
-import HTTPSRequestsScala.util.{Constants, HandleHeaders}
+import HTTPSRequestsScala.utility.{Constants, HandleHeaders}
 
 class PostRequest(var url: String = null, var data: String = "{}") {
   private val requestMethod: String = Constants.POST

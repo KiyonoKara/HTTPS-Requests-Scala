@@ -4,7 +4,7 @@
  */
 
 // Util package for this library
-package HTTPSRequestsScala.util
+package HTTPSRequestsScala.utility
 
 // Networking and web
 import java.net.HttpURLConnection
