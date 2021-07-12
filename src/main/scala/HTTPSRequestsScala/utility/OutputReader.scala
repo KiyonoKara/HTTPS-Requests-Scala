@@ -2,7 +2,7 @@ package HTTPSRequestsScala.utility
 
 /**
  * Created by KaNguy - 04/26/2021
- * File HTTPSRequestsScala.util.OutputReader.scala
+ * File HTTPSRequestsScala.utility.OutputReader.scala
  */
 
 // IO imports

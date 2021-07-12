@@ -2,7 +2,7 @@ package HTTPSRequestsScala.utility
 
 /**
  * Created by KaNguy - 04/24/2021
- * File HTTPSRequestsScala.util.Constants.scala
+ * File HTTPSRequestsScala.utility.Constants.scala
  */
 
 /**

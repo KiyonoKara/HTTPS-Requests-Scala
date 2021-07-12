@@ -2,7 +2,7 @@ package HTTPSRequestsScala.utility
 
 /**
  * Created by KaNguy - 05/07/2021
- * File HTTPSRequestsScala.util.Utility.scala
+ * File HTTPSRequestsScala.utility.Utility.scala
  */
 
 // URL
