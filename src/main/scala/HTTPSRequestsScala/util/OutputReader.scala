@@ -47,7 +47,7 @@ object OutputReader {
     val stringBuilder: StringBuilder = new StringBuilder()
 
     // Appending the data to a String Builder
-    while (true) {
+    while (ch != -1) {
       ch = reader.read()
       if (ch == -1) {
         return stringBuilder.toString()
