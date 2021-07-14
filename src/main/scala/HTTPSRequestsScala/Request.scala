@@ -18,7 +18,7 @@ import scala.io.Source.fromInputStream
 // Request classes
 
 // Local utilities
-import HTTPSRequestsScala.utility.{Constants, OutputReader, HandleHeaders, Utility}
+import HTTPSRequestsScala.utility.{Constants, OutputReader, Utility}
 
 // Other
 import java.lang.reflect.Field
@@ -103,7 +103,7 @@ class Request(var url: String = null, var method: String = Constants.GET, header
 
     // Sets headers
     if (headers.nonEmpty) {
-      HandleHeaders.setHeaders(connection, headers)
+      Utility.setHeaders(connection, headers)
     }
 
     if (method.toUpperCase.equals(Constants.GET)) {
