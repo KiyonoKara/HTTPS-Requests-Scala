@@ -6,7 +6,7 @@ package HTTPSRequestsScala.utility
  */
 
 // URL
-import java.net.{URLEncoder, URL, URI}
+import java.net.{HttpURLConnection, URI, URL, URLEncoder}
 
 // Collections
 import scala.collection.mutable.ListBuffer
@@ -135,6 +135,19 @@ object Utility {
    */
   def JSONToCollections(json: String): Any = {
     JSON.parse(json)
+  }
+
+  def setHeaders(connection: HttpURLConnection, headers: Iterable[(String, String)] = Nil): Unit = {
+    if (headers.nonEmpty) {
+      headers foreach {
+        case (key, value) =>
+          try {
+            connection.setRequestProperty(key, value)
+          } catch {
+            case _: Any => ()
+          }
+      }
+    }
   }
 }
 
