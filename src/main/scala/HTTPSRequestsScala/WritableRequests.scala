@@ -18,7 +18,7 @@ import java.nio.charset.StandardCharsets
 import scala.io.Source.fromInputStream
 
 // Local utils
-import HTTPSRequestsScala.utility.{Constants, HandleHeaders, OutputReader}
+import HTTPSRequestsScala.utility.{Constants, Utility, OutputReader}
 
 // Other
 import java.lang.reflect.Field
@@ -58,8 +58,9 @@ class WritableRequests() {
     }
 
     if (headers.nonEmpty) {
-      HandleHeaders.setHeaders(connection, headers)
+      Utility.setHeaders(connection, headers)
     }
+
     try {
       this.writeToRequest(connection, method, data)
     } catch {
