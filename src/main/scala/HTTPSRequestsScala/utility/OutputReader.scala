@@ -12,8 +12,7 @@ import java.io.{InputStream, InputStreamReader, Reader}
 import java.net.HttpURLConnection
 
 // Compression
-import java.util.zip.GZIPInputStream
-import java.util.zip.DeflaterInputStream
+import java.util.zip.{GZIPInputStream, DeflaterInputStream}
 
 object OutputReader {
   /** Reads output of a connection established via the HttpURLConnection class
@@ -29,14 +28,13 @@ object OutputReader {
     // Set the reader to a null value before reading the output
     var reader: Reader = null
 
-    // GZIP data streaming
-    if (connection.getContentEncoding != null && connection.getContentEncoding.equals("gzip")) {
-      reader = new InputStreamReader(new GZIPInputStream(connectionInputStream))
-    } else reader = new InputStreamReader(connection.getInputStream)
-
-    // Deflate data streaming
-    if (connection.getContentEncoding != null && connection.getContentEncoding.equals("deflate")) {
-      reader = new InputStreamReader(new DeflaterInputStream(connectionInputStream))
+    // GZIP & Deflate data streaming
+    if (connection.getContentEncoding != null && connection.getContentEncoding.nonEmpty) {
+      connection.getContentEncoding match {
+        case "gzip" => reader = new InputStreamReader(new GZIPInputStream(connectionInputStream))
+        case "deflate" => reader = new InputStreamReader(new DeflaterInputStream(connectionInputStream))
+        case _ => reader = new InputStreamReader(connection.getInputStream)
+      }
     } else reader = new InputStreamReader(connection.getInputStream)
 
 
