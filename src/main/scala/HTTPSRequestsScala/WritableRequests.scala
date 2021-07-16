@@ -94,7 +94,7 @@ class WritableRequests() {
       }
       // Get output of request
       val inputStream: InputStream = connection.getInputStream
-      if (connection.getContentEncoding != null && connection.getContentEncoding.toLowerCase.equals("gzip")) {
+      if (connection.getContentEncoding != null && connection.getContentEncoding.nonEmpty) {
         val content: String = OutputReader.read(connection, inputStream)
         content
       } else {
