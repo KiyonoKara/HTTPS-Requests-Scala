@@ -64,27 +64,6 @@ object Utility {
     fin
   }
 
-  /** Turns a map collection into a JSON string, this is not efficient and only works for single-key maps that do not have nested collections
-   *
-   * @param map Non-nested map collection
-   * @return JSON string
-   */
-  def singleMapToJSON(map: Map[String, String]): String = {
-    var json: String = ""
-
-    var iterator: Int = 0
-    map.foreach(i => {
-      if (iterator == map.size - 1) {
-        json += f"${'"'}${i._1}${'"'}" + ": " + f"${'"'}${i._2}${'"'}"
-      } else {
-        json += f"${'"'}${i._1}${'"'}" + ": " + f"${'"'}${i._2}${'"'}${','}" + " "
-      }
-      iterator += 1
-    })
-    json = "{" + json + "}"
-    json
-  }
-
   /** Creates a valid and parsable JSON string from a provided collection
    *
    * @param collections Map, List, Int, Boolean, and String are valid types if the collection is started off with a Map
