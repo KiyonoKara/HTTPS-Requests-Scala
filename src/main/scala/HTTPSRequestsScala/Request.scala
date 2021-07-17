@@ -179,15 +179,6 @@ class Request(var url: String = null, var method: String = Constants.GET, header
     Utility.CollectionsToJSON(collections)
   }
 
-  /** Method to turn maps that have only two strings per index into JSON data as a string
-   *
-   * @param map Map[String, String]; String map with only two strings, this is for regular JSON objects that have no nesting or lists
-   * @return Valid JSON data as a string
-   */
-  def mapToJSON(map: Map[String, String] = Map.empty): String = {
-    Utility.singleMapToJSON(map)
-  }
-
   /** Parses JSON into default collections such as Map and List
    *
    * @param json JSON data in the form of a string
