@@ -170,21 +170,24 @@ class Request(var url: String = null, var method: String = Constants.GET, header
     response.body
   }
 
-  /** Can turn collections into JSON data as a string
-   *
-   * @param collections Any; Accepts collections and primitive types
-   * @return Valid JSON data as a string with no nested objects
-   */
-  def collectionToJSON(collections: Any): String = {
-    Utility.CollectionsToJSON(collections)
-  }
+  // JSON object embedded in the Request class since it is the main class after-all
+  object JSON {
+    /** Can turn collections into JSON data as a string
+     *
+     * @param collections Any; Accepts collections and primitive types
+     * @return Valid JSON data as a string with no nested objects
+     */
+    def encode(collections: Iterable[(Any, Any)]): String = {
+      Utility.CollectionsToJSON(collections)
+    }
 
-  /** Parses JSON into default collections such as Map and List
-   *
-   * @param json JSON data in the form of a string
-   * @return Any, related to collections
-   */
-  def parseJSON(json: String): Map[Any, Any] = {
-    Utility.JSONToCollections(json).asInstanceOf[Map[Any, Any]]
+    /** Parses JSON into default collections such as Map and List
+     *
+     * @param json JSON data in the form of a string
+     * @return Any, related to collections
+     */
+    def parse(json: String): Map[Any, Any] = {
+      Utility.JSONToCollections(json).asInstanceOf[Map[Any, Any]]
+    }
   }
 }
