@@ -8,6 +8,7 @@ package HTTPSRequestsScala
 // Networking and web
 import java.net.{ConnectException, HttpURLConnection, URI, URL}
 import javax.net.ssl.SSLException
+import scala.language.implicitConversions
 
 // Java HTTP
 import java.net.http.{HttpClient, HttpHeaders, HttpRequest, HttpResponse}
@@ -189,6 +190,14 @@ class Request(var url: String = null, var method: String = Constants.GET, header
     })
 
     optionHeaders.asScala.toMap
+  }
+
+  def amend(map: Map[Any, Any]): String = {
+    var str: String = new String()
+    map.foreach(entry => {
+      str += "%s: %s%n".format(entry._1, entry._2)
+    })
+    str
   }
 
   // JSON object embedded in the Request class since it is the main class after-all
