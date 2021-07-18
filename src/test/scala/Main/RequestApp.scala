@@ -61,7 +61,7 @@ object RequestApp extends App {
   println(PATCH)
 
   // HEAD, read-only
-  val HEAD: String = requester.head("http://localhost:8080/echo")
+  val HEAD: Map[String, List[String]] = requester.head("http://localhost:8080/echo")
   println(HEAD)
 
   // Quick methods
