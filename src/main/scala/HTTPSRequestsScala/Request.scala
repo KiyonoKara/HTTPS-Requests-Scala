@@ -22,6 +22,8 @@ import HTTPSRequestsScala.utility.{Constants, OutputReader, Utility}
 
 // Other
 import java.lang.reflect.Field
+import java.util
+import scala.jdk.CollectionConverters._
 
 /** Main class for making HTTP/HTTPS requests
  *
@@ -168,6 +170,26 @@ class Request(var url: String = null, var method: String = Constants.GET, header
 
     val response: HttpResponse[String] = client.send(request.build(), HttpResponse.BodyHandlers.ofString())
     response.body
+  }
+
+  def options(url: String = this.url, version: String = HttpClient.Version.HTTP_2.toString): Map[String, List[String]] = {
+    val optionHeaders: util.HashMap[String, List[String]] = new util.HashMap[String, List[String]]
+
+    val client: HttpClient = HttpClient.newBuilder()
+                            .version(HttpClient.Version.valueOf(version.toUpperCase))
+                            .build()
+
+    val request: HttpRequest.Builder = HttpRequest.newBuilder()
+      .method(Constants.OPTIONS, HttpRequest.BodyPublishers.noBody())
+      .uri(URI.create(url))
+
+    val response: HttpResponse[String] = client.send(request.build(), HttpResponse.BodyHandlers.ofString())
+    val responseHeaders = response.headers().map()
+    responseHeaders.forEach((k, v) => {
+      optionHeaders.put(k, v.asScala.toList)
+    })
+
+    optionHeaders.asScala.toMap
   }
 
   // JSON object embedded in the Request class since it is the main class after-all
