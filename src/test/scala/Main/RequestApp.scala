@@ -23,7 +23,7 @@ object RequestApp extends App {
     "http://localhost:8080/payload",
     "POST",
     Map("Content-Type" -> "application/json; charset=UTF-8", "User-Agent" -> "Scala", "Accept" -> "application/json"),
-    requester.collectionToJSON(
+    requester.JSON.encode(
       Map("payload" ->
         Map("message" -> "This is a payload",
           "list" -> List(1, 2, 3, 4)
@@ -69,12 +69,12 @@ object RequestApp extends App {
   println(qPOST)
 
   // JSON parsing
-  val parsedGET = requester.parseJSON(GET)
-  val parsedPOST = requester.parseJSON(POST)
-  val parsedPOSTPayload = requester.parseJSON(POSTPayload)
-  val parsedDELETE = requester.parseJSON(DELETE)
-  val parsedPUT = requester.parseJSON(PUT)
-  val parsedPATCH = requester.parseJSON(PATCH)
+  val parsedGET = requester.JSON.parse(GET)
+  val parsedPOST = requester.JSON.parse(POST)
+  val parsedPOSTPayload = requester.JSON.parse(POSTPayload)
+  val parsedDELETE = requester.JSON.parse(DELETE)
+  val parsedPUT = requester.JSON.parse(PUT)
+  val parsedPATCH = requester.JSON.parse(PATCH)
   println(parsedGET + "\n" + parsedPOST + "\n" + parsedPOSTPayload + "\n" + parsedDELETE + "\n" + parsedPUT + "\n" + parsedPATCH)
   println(parsedGET.getOrElse("status", "status") + "\n" + parsedGET.getOrElse("status", "status").asInstanceOf[Map[Any, Any]].getOrElse("code", "message"))
 }
