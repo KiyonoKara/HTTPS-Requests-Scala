@@ -128,7 +128,7 @@ class Request(var url: String = null, var method: String = Constants.GET, header
   /** Creates a HEAD request that gets the headers of the response, there is no body from HEAD requests
    *
    * @param url Provide an URL for making the HEAD request
-   * @return A long string with all the response headers, this is not the body of the request
+   * @return A Map with all the response headers, this is not the body of the request
    */
   def head(url: String = this.url): Map[String, List[String]] = {
     val headers: util.HashMap[String, List[String]] = new util.HashMap[String, List[String]]
