@@ -129,21 +129,20 @@ class Request(var url: String = null, var method: String = Constants.GET, header
    * @param url Provide an URL for making the HEAD request
    * @return A long string with all the response headers, this is not the body of the request
    */
-  def head(url: String = this.url): String = {
+  def head(url: String = this.url): Map[String, List[String]] = {
+    val headers: util.HashMap[String, List[String]] = new util.HashMap[String, List[String]]
     val client: HttpClient = HttpClient.newHttpClient()
     val headRequest: HttpRequest = HttpRequest.newBuilder(URI.create(url))
                       .method(Constants.HEAD, HttpRequest.BodyPublishers.noBody())
                       .build()
 
     val response: HttpResponse[Void] = client.send(headRequest, HttpResponse.BodyHandlers.discarding())
-    val headers: HttpHeaders = response.headers()
-
-    var strHeaders: String = new String()
-    headers.map.forEach((key, values) => {
-      strHeaders += "%s: %s%n".format(key, values)
+    val responseHeaders: HttpHeaders = response.headers()
+    responseHeaders.map.forEach((k, v) => {
+      headers.put(k, v.asScala.toList)
     })
 
-    strHeaders
+    headers.asScala.toMap
   }
 
   /** Makes a simple and fast POST request using Java's HTTP Client
