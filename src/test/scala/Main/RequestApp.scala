@@ -63,6 +63,12 @@ object RequestApp extends App {
   // HEAD, read-only
   val HEAD: Map[String, List[String]] = requester.head("http://localhost:8080/echo")
   println(HEAD)
+  println(requester.amend(HEAD))
+
+  // OPTIONS, read-only
+  val OPTIONS: Map[String, List[String]] = requester.options("http://localhost:8080/echo")
+  println(OPTIONS)
+  println(requester.amend(OPTIONS))
 
   // Quick methods
   val qPOST: String = requester.post("http://localhost:8080/echo", "{\"message\": \"Quick POST message\"}", headers = Map("Content-Type" -> "application/json; charset=UTF-8", "User-Agent" -> "Scala", "Accept" -> "application/json"))
