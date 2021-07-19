@@ -111,6 +111,7 @@ class Request(var url: String = null, var method: String = Constants.GET, header
     }
 
     if (method.toUpperCase.equals(Constants.POST) || method.toUpperCase.equals(Constants.DELETE) || method.toUpperCase.equals(Constants.PUT) || method.toUpperCase.equals(Constants.PATCH)) {
+      connection.disconnect()
       return writableRequests.request(requestURL, method, data, headers)
     }
 
