@@ -12,6 +12,10 @@ import javax.net.ssl.SSLException
 // Java HTTP
 import java.net.http.{HttpClient, HttpHeaders, HttpRequest, HttpResponse}
 
+// IO & NIO
+import java.io.{InputStream, OutputStream}
+import java.nio.charset.StandardCharsets
+
 // Scala IO Source
 import scala.io.Source.fromInputStream
 
@@ -32,7 +36,6 @@ import scala.jdk.CollectionConverters._
  * @param headers Iterable[(String, String)]; Headers in the form of a Map collection is primarily valid
  */
 class Request(var url: String = null, var method: String = Constants.GET, headers: Iterable[(String, String)] = Nil) {
-  private val writableRequests: WritableRequests = new WritableRequests()
   private lazy val methodField: Field = {
     val method = classOf[HttpURLConnection].getDeclaredField("method")
     method.setAccessible(true)
@@ -113,8 +116,7 @@ class Request(var url: String = null, var method: String = Constants.GET, header
     }
 
     if (method.toUpperCase.equals(Constants.POST) || method.toUpperCase.equals(Constants.DELETE) || method.toUpperCase.equals(Constants.PUT) || method.toUpperCase.equals(Constants.PATCH)) {
-      connection.disconnect()
-      return writableRequests.request(requestURL, method, data, headers)
+      return this.writeToRequest(connection, method, data)
     }
 
     // Input stream for data with a GET request if all of the requests fail
@@ -123,6 +125,54 @@ class Request(var url: String = null, var method: String = Constants.GET, header
     if (inputStream != null) inputStream.close()
     // Return the content or data, read-only
     content
+  }
+
+
+  /**
+   *
+   * @param connection HttpURLConnection; The connection established will be used so it can be written to.
+   * @param method A method is always required, cannot default to a common request method
+   * @param data Preferably JSON data in the form of a string.
+   * @return output Generally returns the output of the Output Reader
+   */
+  def writeToRequest(connection: HttpURLConnection, method: String, data: String): String = {
+    val theMethod: String = method.toUpperCase
+    if (theMethod.equals(Constants.POST) || theMethod.equals(Constants.PUT) || theMethod.equals(Constants.PATCH)) connection.setDoOutput(true)
+
+    // Processing the data
+    if (data == null || data.isEmpty) {
+      val inputStream: InputStream = connection.getInputStream
+      val content: String = fromInputStream(inputStream).mkString
+      inputStream.close()
+      return content
+    }
+    val byte: Array[Byte] = data.getBytes(StandardCharsets.UTF_8)
+    val length: Int = byte.length
+    connection.setFixedLengthStreamingMode(length)
+
+    try {
+      // Write to the request
+      val outputStream: OutputStream = connection.getOutputStream
+      outputStream.write(byte, 0, byte.length)
+      if (theMethod.equals(Constants.POST)) {
+        outputStream.flush()
+        outputStream.close()
+      }
+      // Get output of request
+      val inputStream: InputStream = connection.getInputStream
+      if (connection.getContentEncoding != null && connection.getContentEncoding.nonEmpty) {
+        val content: String = OutputReader.read(connection, inputStream)
+        content
+      } else {
+        val content: String = fromInputStream(inputStream).mkString
+        inputStream.close()
+        content
+      }
+    } catch {
+      case error: Error =>
+        error.printStackTrace()
+        error.toString
+    }
   }
 
   /** Creates a HEAD request that gets the headers of the response, there is no body from HEAD requests
