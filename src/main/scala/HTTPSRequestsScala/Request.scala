@@ -8,15 +8,12 @@ package HTTPSRequestsScala
 // Networking and web
 import java.net.{ConnectException, HttpURLConnection, URI, URL}
 import javax.net.ssl.SSLException
-import scala.language.implicitConversions
 
 // Java HTTP
 import java.net.http.{HttpClient, HttpHeaders, HttpRequest, HttpResponse}
 
 // Scala IO Source
 import scala.io.Source.fromInputStream
-
-// Request classes
 
 // Local utilities
 import HTTPSRequestsScala.utility.{Constants, OutputReader, Utility}
