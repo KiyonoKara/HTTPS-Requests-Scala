@@ -223,30 +223,6 @@ class Request(var url: String = null, var method: String = Constants.GET, header
     response.body
   }
 
-  // TODO: Force close this
-  def options(url: String = this.url, version: String = HttpClient.Version.HTTP_2.toString, timeout: Int = 5000): Map[String, List[String]] = {
-    val executorService: ExecutorService = Executors.newSingleThreadExecutor()
-    val optionHeaders: util.HashMap[String, List[String]] = new util.HashMap[String, List[String]]
-
-    val client: HttpClient = HttpClient.newBuilder()
-                            .version(HttpClient.Version.valueOf(version.toUpperCase))
-                            .executor(executorService)
-                            .connectTimeout(Duration.ofMillis(timeout))
-                            .build()
-
-    val request: HttpRequest.Builder = HttpRequest.newBuilder()
-      .method(Constants.OPTIONS, HttpRequest.BodyPublishers.noBody())
-      .uri(URI.create(url))
-
-    val response: HttpResponse[String] = client.send(request.build(), HttpResponse.BodyHandlers.ofString())
-    val responseHeaders = response.headers().map()
-    responseHeaders.forEach((k, v) => {
-      optionHeaders.put(k, v.asScala.toList)
-    })
-    executorService.shutdown()
-    optionHeaders.asScala.toMap
-  }
-
   def amend(map: Map[String, List[String]]): String = {
     var str: String = new String()
     map.foreach(entry => {
