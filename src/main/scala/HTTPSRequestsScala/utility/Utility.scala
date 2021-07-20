@@ -5,6 +5,9 @@ package HTTPSRequestsScala.utility
  * File HTTPSRequestsScala.utility.Utility.scala
  */
 
+// Library
+import HTTPSRequestsScala.utility.JSON
+
 // URL
 import java.net.{HttpURLConnection, URI, URL, URLEncoder}
 
@@ -64,47 +67,13 @@ object Utility {
     fin
   }
 
-  /** Creates a valid and parsable JSON string from a provided collection
+  /** Creates a valid and parsable JSON string from a provided collection; Forwarded method from the JSON object
    *
    * @param collections Map, List, Int, Boolean, and String are valid types if the collection is started off with a Map
    * @return JSON string
    */
-  def CollectionsToJSON(collections: Any): String = {
-    val JSON = new ListBuffer[String]()
-    collections match {
-      case map: Map[_, _] =>
-        for ((k, v) <- map) {
-          val key = k.asInstanceOf[String].replaceAll("\"" , "\\\\\"")
-          v match {
-            case map: Map[_, _] => JSON += s""""$key": ${CollectionsToJSON(map)}""";
-            case list: List[_] => JSON += s""""$key": ${CollectionsToJSON(list)}""";
-            case int: Int => JSON += s""""$key": $int""";
-            case boolean: Boolean => JSON += s""""$key": $boolean""";
-            case string: String => JSON += s""""$key": "${string.replaceAll("\"" , "\\\\\"")}""""
-            case _ => ();
-          }
-        };
-
-      case theList: List[_] =>
-        val list = new ListBuffer[String]()
-        for (listing <- theList) {
-          listing match {
-            case map: Map[_, _] => list += CollectionsToJSON(map);
-            case caseList: List[_] => list += CollectionsToJSON(caseList);
-            case int: Int => list += int.toString;
-            case boolean: Boolean => list += boolean.toString;
-            case string: String => list += s""""${string.replaceAll("\"" , "\\\\\"")}"""";
-            case _ => ();
-          }
-        }
-
-        return "[" + list.mkString(",") + "]"
-
-      case _ => ();
-    }
-
-    val JSONString: String = "{" + JSON.mkString(",") + "}"
-    JSONString
+  def encodeJSON(collections: Any): String = {
+    JSON.encodeJSON(collections)
   }
 
   /** Parses JSON into a collection, primarily an immutable Map; this method is a medium for the JSON parser that is in this library
@@ -112,7 +81,7 @@ object Utility {
    * @param json The JSON string
    * @return Typically a map
    */
-  def JSONToCollections(json: String): Any = {
+  def parseJSON(json: String): Any = {
     JSON.parse(json)
   }
 
