@@ -12,6 +12,11 @@ import scala.annotation.tailrec
 import scala.collection.mutable.ListBuffer
 
 object JSON {
+  /** Parses JSON into a collection, primarily an immutable Scala Map
+   *
+   * @param json The JSON string
+   * @return Map
+   */
   def parse(json: String): Any = {
     JSONParser.parse(json)
   }
