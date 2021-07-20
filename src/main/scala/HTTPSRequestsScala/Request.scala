@@ -20,7 +20,7 @@ import java.nio.charset.StandardCharsets
 import scala.io.Source.fromInputStream
 
 // Local utilities
-import HTTPSRequestsScala.utility.{Constants, OutputReader, Utility}
+import HTTPSRequestsScala.utility.{Constants, OutputReader, Utility, JSON}
 
 // Other
 import java.lang.reflect.Field
@@ -262,7 +262,7 @@ class Request(var url: String = null, var method: String = Constants.GET, header
      * @return Valid JSON data as a string with no nested objects
      */
     def encode(collections: Iterable[(Any, Any)]): String = {
-      Utility.CollectionsToJSON(collections)
+      Utility.encodeJSON(collections)
     }
 
     /** Parses JSON into default collections such as Map and List
@@ -271,7 +271,7 @@ class Request(var url: String = null, var method: String = Constants.GET, header
      * @return Any, related to collections
      */
     def parse(json: String): Map[Any, Any] = {
-      Utility.JSONToCollections(json).asInstanceOf[Map[Any, Any]]
+      Utility.parseJSON(json).asInstanceOf[Map[Any, Any]]
     }
   }
 }
