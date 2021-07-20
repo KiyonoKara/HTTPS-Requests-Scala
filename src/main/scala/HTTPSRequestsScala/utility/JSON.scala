@@ -8,6 +8,9 @@ package HTTPSRequestsScala.utility
 // Scala Annotations
 import scala.annotation.tailrec
 
+// Collections
+import scala.collection.mutable.ListBuffer
+
 object JSON {
   def parse(json: String): Any = {
     JSONParser.parse(json)
@@ -182,6 +185,50 @@ object JSON {
      * @return Stringed JSON data that is parsable
      */
     private def toJSONString(tokens: List[Token]) = tokens.map(_.value).mkString
+  }
+
+
+  /** Creates a valid and parsable JSON string from a provided collection
+   *
+   * @param collections Map, List, Int, Boolean, and String are valid types if the collection is started off with a Map
+   * @return JSON string
+   */
+  def encodeJSON(collections: Any): String = {
+    val JSON = new ListBuffer[String]()
+    collections match {
+      case map: Map[_, _] =>
+        for ((k, v) <- map) {
+          val key = k.asInstanceOf[String].replaceAll("\"" , "\\\\\"")
+          v match {
+            case map: Map[_, _] => JSON += s""""$key": ${encodeJSON(map)}""";
+            case list: List[_] => JSON += s""""$key": ${encodeJSON(list)}""";
+            case int: Int => JSON += s""""$key": $int""";
+            case boolean: Boolean => JSON += s""""$key": $boolean""";
+            case string: String => JSON += s""""$key": "${string.replaceAll("\"" , "\\\\\"")}""""
+            case _ => ();
+          }
+        };
+
+      case caseList: List[_] =>
+        val list = new ListBuffer[String]()
+        for (listing <- caseList) {
+          listing match {
+            case map: Map[_, _] => list += encodeJSON(map);
+            case caseList: List[_] => list += encodeJSON(caseList);
+            case int: Int => list += int.toString;
+            case boolean: Boolean => list += boolean.toString;
+            case string: String => list += s""""${string.replaceAll("\"" , "\\\\\"")}"""";
+            case _ => ();
+          }
+        }
+
+        return "[" + list.mkString(",") + "]"
+
+      case _ => ();
+    }
+
+    val JSONString: String = "{" + JSON.mkString(",") + "}"
+    JSONString
   }
 
   /**
