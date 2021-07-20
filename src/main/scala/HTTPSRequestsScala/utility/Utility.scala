@@ -5,14 +5,8 @@ package HTTPSRequestsScala.utility
  * File HTTPSRequestsScala.utility.Utility.scala
  */
 
-// Library
-import HTTPSRequestsScala.utility.JSON
-
 // URL
 import java.net.{HttpURLConnection, URI, URL, URLEncoder}
-
-// Collections
-import scala.collection.mutable.ListBuffer
 
 object Utility {
   /** Encodes URL parameters for queries
