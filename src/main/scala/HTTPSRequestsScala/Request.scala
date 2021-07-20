@@ -20,7 +20,8 @@ import java.nio.charset.StandardCharsets
 import scala.io.Source.fromInputStream
 
 // Local utilities
-import HTTPSRequestsScala.utility.{Constants, OutputReader, Utility, JSON => JSONUtility}
+import HTTPSRequestsScala.utility.{OutputReader, Utility, JSON => JSONUtility}
+import HTTPSRequestsScala.utility.Utility.{Constants => Constants}
 
 // Other
 import java.lang.reflect.Field
