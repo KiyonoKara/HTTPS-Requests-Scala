@@ -26,7 +26,6 @@ import HTTPSRequestsScala.utility.Utility.{Constants => Constants}
 // Other
 import java.lang.reflect.Field
 import java.util
-import java.util.concurrent.{Executor, Executors, ExecutorService, ScheduledExecutorService, TimeUnit}
 import java.time.Duration
 import scala.jdk.CollectionConverters._
 
@@ -223,13 +222,18 @@ class Request(var url: String = null, var method: String = Constants.GET, header
     response.body
   }
 
+  /** Makes an OPTIONS request and gets the options of a request, identifies allowed methods. May not work with some URLs that are requested due to Cross-Origin Resource Sharing
+   *
+   * @param url Provide an URL
+   * @param version Provide an optional HTTP version, HTTP_2 or HTTP_1_1 are valid
+   * @param timeout Optional timeout
+   * @return Map of the response headers with the options
+   */
   def options(url: String = this.url, version: String = HttpClient.Version.HTTP_2.toString, timeout: Int = 5000): Map[String, List[String]] = {
-    val executorService: ScheduledExecutorService = Executors.newScheduledThreadPool(1)
     val optionHeaders: util.HashMap[String, List[String]] = new util.HashMap[String, List[String]]
 
     val client: HttpClient = HttpClient.newBuilder()
                             .version(HttpClient.Version.valueOf(version.toUpperCase))
-                            .executor(executorService)
                             .connectTimeout(Duration.ofMillis(timeout))
                             .build()
 
@@ -237,13 +241,13 @@ class Request(var url: String = null, var method: String = Constants.GET, header
       .method(Constants.OPTIONS, HttpRequest.BodyPublishers.noBody())
       .uri(URI.create(url))
 
-    val response: HttpResponse[String] = client.sendAsync(request.build(), HttpResponse.BodyHandlers.ofString()).get(timeout, TimeUnit.MILLISECONDS)
+    val response: HttpResponse[String] = client.send(request.build(), HttpResponse.BodyHandlers.ofString())
 
     val responseHeaders = response.headers().map()
     responseHeaders.forEach((k, v) => {
       optionHeaders.put(k, v.asScala.toList)
     })
-    executorService.shutdownNow()
+
     optionHeaders.asScala.toMap
   }
 
