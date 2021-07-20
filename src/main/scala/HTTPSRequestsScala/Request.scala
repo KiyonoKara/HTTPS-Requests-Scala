@@ -26,7 +26,7 @@ import HTTPSRequestsScala.utility.Utility.{Constants => Constants}
 // Other
 import java.lang.reflect.Field
 import java.util
-import java.util.concurrent.{Executors, ExecutorService}
+import java.util.concurrent.{Executor, Executors, ExecutorService, ScheduledExecutorService, TimeUnit}
 import java.time.Duration
 import scala.jdk.CollectionConverters._
 
@@ -221,6 +221,30 @@ class Request(var url: String = null, var method: String = Constants.GET, header
 
     val response: HttpResponse[String] = client.send(request.build(), HttpResponse.BodyHandlers.ofString())
     response.body
+  }
+
+  def options(url: String = this.url, version: String = HttpClient.Version.HTTP_2.toString, timeout: Int = 5000): Map[String, List[String]] = {
+    val executorService: ScheduledExecutorService = Executors.newScheduledThreadPool(1)
+    val optionHeaders: util.HashMap[String, List[String]] = new util.HashMap[String, List[String]]
+
+    val client: HttpClient = HttpClient.newBuilder()
+                            .version(HttpClient.Version.valueOf(version.toUpperCase))
+                            .executor(executorService)
+                            .connectTimeout(Duration.ofMillis(timeout))
+                            .build()
+
+    val request: HttpRequest.Builder = HttpRequest.newBuilder()
+      .method(Constants.OPTIONS, HttpRequest.BodyPublishers.noBody())
+      .uri(URI.create(url))
+
+    val response: HttpResponse[String] = client.sendAsync(request.build(), HttpResponse.BodyHandlers.ofString()).get(timeout, TimeUnit.MILLISECONDS)
+
+    val responseHeaders = response.headers().map()
+    responseHeaders.forEach((k, v) => {
+      optionHeaders.put(k, v.asScala.toList)
+    })
+    executorService.shutdownNow()
+    optionHeaders.asScala.toMap
   }
 
   def amend(map: Map[String, List[String]]): String = {
