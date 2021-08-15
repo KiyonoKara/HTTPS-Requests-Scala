@@ -227,7 +227,7 @@ object JSON {
           }
         }
 
-        return "[" + list.mkString(",") + "]"
+        return "[" + list.mkString(",") + "]";
 
       case _ => ();
     }
