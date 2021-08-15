@@ -251,6 +251,11 @@ class Request(var url: String = null, var method: String = Constants.GET, header
     optionHeaders.asScala.toMap
   }
 
+  /**
+   * Amends headers from a Map containing a String key and List[String] value into a neat and organized string
+   * @param map Map with the String and List with Strings
+   * @return String
+   */
   def amend(map: Map[String, List[String]]): String = {
     var str: String = new String()
     map.foreach(entry => {
