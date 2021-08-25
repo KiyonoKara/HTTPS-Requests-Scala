@@ -22,6 +22,9 @@ The library strives to make requesting easier and more simplified, and to provid
 ## Author Notes
 This repository is more of a wrapper for several Java & Scala classes, but it still implements the ability to make HTTP/HTTPS requests. There are a number of things that can improve and other things surrounding HTTP/HTTPS than can have more implementation(s).
 
+## Project Status
+Complete. A more finalized and maintained version of this is currently a library.
+
 ## Contributing
 Read about contributing to this repository [here](CONTRIBUTING.md).
 
