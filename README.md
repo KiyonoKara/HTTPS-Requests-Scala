@@ -2,11 +2,11 @@
 
 <div>
   <p>
-    <a href="https://github.com/KaNguy/HTTPS-Requests-Scala/pulls"><img src="https://shields.io/github/issues-pr/KaNguy/HTTPS-Requests-Scala?color=da301b" alt="PRs" /></a>
-    <a><img src="https://shields.io/github/languages/code-size/KaNguy/HTTPS-Requests-Scala?color=da301b" /></a>
-    <a><img src="https://shields.io/tokei/lines/github/KaNguy/HTTPS-Requests-Scala" /></a>
-    <a><img src="https://img.shields.io/github/last-commit/KaNguy/HTTPS-Requests-Scala?color=007ace"></a>
-    <a href="LICENSE.md"><img src="https://img.shields.io/github/license/KaNguy/HTTPS-Requests-Scala?color=007ace" alt="License" /></a>
+    <a href="https://github.com/KiyonoKara/HTTPS-Requests-Scala/pulls"><img src="https://shields.io/github/issues-pr/KiyonoKara/HTTPS-Requests-Scala?color=da301b" alt="PRs" /></a>
+    <a><img src="https://shields.io/github/languages/code-size/KiyonoKara/HTTPS-Requests-Scala?color=da301b" /></a>
+    <a><img src="https://shields.io/tokei/lines/github/KiyonoKara/HTTPS-Requests-Scala" /></a>
+    <a><img src="https://img.shields.io/github/last-commit/KiyonoKara/HTTPS-Requests-Scala?color=007ace"></a>
+    <a href="LICENSE.md"><img src="https://img.shields.io/github/license/KiyonoKara/HTTPS-Requests-Scala?color=007ace" alt="License" /></a>
   </p>
 </div>
 
